@@ -18,9 +18,30 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{	
+
+	public function __construct() {
+
+		parent:: __construct();
+
+		$this->load->database();
+
+		$this->load->library('pagination');	
+
+		$this->load->library('session');
+
+		$this->load->library('form_validation');
+		$this->load->helper('url');
 		
-		$this->load->view('public_pages/home');
+	}
+
+	public function index() {	
+
+		$q = $this->db->select('*')->from('users')->get();
+
+		print_r($q->result());
+
+		// $data['users'] = 
+
+		// $this->load->view('public_pages/home',$data);
 	}
 }
