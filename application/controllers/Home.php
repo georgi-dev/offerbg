@@ -38,10 +38,10 @@ class Home extends CI_Controller {
 
 		$q = $this->db->select('*')->from('users')->get();
 
-		print_r($q->result());
+		// print_r($q->result());
 
-		// $data['users'] = 
+		 $data['users'] = $q->result();
 
-		// $this->load->view('public_pages/home',$data);
+		$this->load->view('public_pages/home',$data);
 	}
 }
