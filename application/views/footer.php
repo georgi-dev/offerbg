@@ -8,7 +8,7 @@
 	<?php endforeach; ?>
 <?php endif ?>
 
-
+<script type="text/javascript" src="<?php echo asset_url();?>js/api/api.js"></script>
 
 </body>
 </html>

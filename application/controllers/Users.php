@@ -53,7 +53,7 @@ class Users extends CI_Controller {
 
 	public function addUser() {	
 
-		
+
 
 		$params = array(
 						'fname' => "Иван",
@@ -77,5 +77,17 @@ class Users extends CI_Controller {
 
 		$user = $this->Users_model->editUser($id, $params);
 		
+	}
+
+	public function deleteUser($ID) {
+
+		// if ($this->input->server('REQUEST_METHOD') == 'POST'){
+
+		// 	return "delete user";
+		// }
+
+
+		$this->db->where('userID',$ID);
+		$this->db->delete('users');
 	}
 }
