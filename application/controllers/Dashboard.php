@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Dashboard extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -43,6 +43,6 @@ class Home extends CI_Controller {
 		 $data['users'] = $q->result();
 
 		// $this->load->view('public_pages/home',$data);
-		$this->load->view('/public_pages/home');
+		$this->load->view('user/dashboard');
 	}
 }
