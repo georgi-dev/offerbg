@@ -66,11 +66,11 @@ class Auth {
 
 		} else {
 
-			$this->CI->load->model('Users');
+			$this->CI->load->model('Users_model');
 
 			
 
-			$UserInfo = $this->CI->Users->GetUserByUsername($Username);
+			$UserInfo = $this->CI->Users_model->GetUserByUsername($Username);
 
 			
 
@@ -138,11 +138,11 @@ class Auth {
 
 	public function CheckLoginDetails($Username, $Password, $UpdateSession = TRUE) {
 
-		$this->CI->load->model('Users');
+		$this->CI->load->model('Users_model');
 
 		
 
-		$UserInfo = $this->CI->Users->GetUserByUsername($Username);
+		$UserInfo = $this->CI->Users_model->GetUserByUsername($Username);
 
 		if ($UserInfo) {
 
@@ -208,7 +208,7 @@ class Auth {
 
 	public function Login($UserInfo) {
 
-		$this->load
+		//$this->load
 		$Data = array(
 			
 			'username' => $UserInfo->email,
@@ -247,17 +247,17 @@ class Auth {
 
 	public function Register($Username, $Password, $FirstName, $LastName) {
 
-		$this->CI->load->model('Users');
+		$this->CI->load->model('Users_model');
 
 		
 
-		if ($this->CI->Users->UsernameExists($Username)) {
+		if ($this->CI->Users_model->UsernameExists($Username)) {
 
 			return AUTH_REG_USERNAME_IN_USE;
 
 		} else {
 
-			if ($this->CI->Users->AddUser($Username, $this->EncryptPassword($Password), $FirstName, $LastName)) {
+			if ($this->CI->Users_model->AddUser($Username, $this->EncryptPassword($Password), $FirstName, $LastName)) {
 
 				return AUTH_REG_SUCCESS;
 
@@ -275,7 +275,7 @@ class Auth {
 
 	public function EditUser($UserId, $Password, $FirstName, $LastName) {
 
-		$this->CI->load->model('Users');
+		$this->CI->load->model('Users_model');
 
 		
 
@@ -293,7 +293,7 @@ class Auth {
 
 			
 
-			if ($this->CI->Users->EditUser($UserId, $Password, $FirstName, $LastName)) {
+			if ($this->CI->Users_model->EditUser($UserId, $Password, $FirstName, $LastName)) {
 
 				return AUTH_EDIT_SUCCESS;
 
@@ -311,11 +311,11 @@ class Auth {
 
 	public function DeleteUser($UserId) {
 
-		$this->CI->load->model('Users');
+		$this->CI->load->model('Users_model');
 
 		
 
-		return $this->CI->Users->DeleteUser($UserId);
+		return $this->CI->Users_model->DeleteUser($UserId);
 
 	}
 
@@ -351,11 +351,11 @@ class Auth {
 
 		
 
-		$this->CI->load->model('Users');
+		$this->CI->load->model('Users_model');
 
 		if (!$SkipExistsCheck) {
 
-			if (!$this->CI->Users->GetUserById($UserId)) {
+			if (!$this->CI->Users_model->GetUserById($UserId)) {
 
 				return FALSE;
 
