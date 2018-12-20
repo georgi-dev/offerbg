@@ -79,8 +79,6 @@ class Users extends CI_Controller {
 
 	public function registration($Action = NULL) {
 
-		
-
 			if ($Action === 'do') {
 
 				$Username = $this->input->post('email');
@@ -88,11 +86,15 @@ class Users extends CI_Controller {
 				$RepeatPassword = $this->input->post('password2');
 				$FirstName = $this->input->post('firstname');
 				$LastName = $this->input->post('lastname');
+				$Phone = $this->input->post('phone');
+				$City = $this->input->post('city');
 
-				if (empty($Username) || empty($Password) || empty($FirstName) || empty($LastName)) {
+				if (empty($Username) || empty($Password) || empty($FirstName) || empty($LastName || empty($Phone) || empty($City))) {
 					$this->session->set_flashdata('fusername', $Username);
 					$this->session->set_flashdata('firstname', $FirstName);
 					$this->session->set_flashdata('lastname', $LastName);
+					$this->session->set_flashdata('lastname', $Phone);
+					$this->session->set_flashdata('lastname', $City);
 					
 					$this->messages->AddMessage('Please, fill in all the fields.', 'danger');
 					
@@ -101,12 +103,14 @@ class Users extends CI_Controller {
 					$this->session->set_flashdata('fusername', $Username);
 					$this->session->set_flashdata('firstname', $FirstName);
 					$this->session->set_flashdata('lastname', $LastName);
+					$this->session->set_flashdata('lastname', $Phone);
+					$this->session->set_flashdata('lastname', $City);
 					
 					$this->messages->AddMessage('Passwords doesn\'t match.', 'danger');
 					
 					redirect('users/registration');
 				} else {
-					$RegisterStatus = $this->auth->Register($Username, $Password, $FirstName, $LastName);
+					$RegisterStatus = $this->auth->Register($Username, $Password, $FirstName, $LastName, $Phone, $City);
 					if ($RegisterStatus === AUTH_REG_SUCCESS) {
 						$this->messages->AddMessage('Administrator created.', 'success');
 						
@@ -115,6 +119,8 @@ class Users extends CI_Controller {
 						$this->session->set_flashdata('fusername', $Username);
 						$this->session->set_flashdata('firstname', $FirstName);
 						$this->session->set_flashdata('lastname', $LastName);
+						$this->session->set_flashdata('lastname', $Phone);
+						$this->session->set_flashdata('lastname', $City);
 						
 						$this->messages->AddMessage('E-mail is in use.', 'danger');
 						
@@ -123,6 +129,8 @@ class Users extends CI_Controller {
 						$this->session->set_flashdata('fusername', $Username);
 						$this->session->set_flashdata('firstname', $FirstName);
 						$this->session->set_flashdata('lastname', $LastName);
+						$this->session->set_flashdata('lastname', $Phone);
+						$this->session->set_flashdata('lastname', $City);
 						
 						$this->messages->AddMessage('There was an error while trying to create the account. Please, try again later.', 'danger');
 						
@@ -131,7 +139,9 @@ class Users extends CI_Controller {
 				}
 			}
 			else {
-					$this->load->view('user/registration');
+					$q = $this->db->select('*')->from('cities')->get();
+					$data = array('Cities' => $q->result());
+					$this->load->view('user/registration', $data);
 				}
 		// if ($this->auth->IsLogged()) {
 		// 	if ($this->auth->HavePermission('ManageAdmins')) {

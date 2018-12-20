@@ -15,6 +15,8 @@
     $FirstName = $this->session->flashdata('firstname');
 
     $LastName = $this->session->flashdata('lastname');
+    $City = $this->session->flashdata('city');
+    $Phone = $this->session->flashdata('phone');
 
 
    //print_r($Name);
@@ -96,10 +98,47 @@
             
           </div>
 
+          <div class="form-group row">
+
+            <label for="inputLastName" class="col-sm-2 control-label">City</label>
+
+
+
+            <div class="col-sm-10">
+
+              <select class="form-control" name="city">
+                <?php foreach ($Cities as $key => $City): ?>
+
+                  <option value="<?php echo $City->id;?>"><?php echo $City->name;?></option>
+               
+                <?php endforeach ?>
+                
+              </select>
+
+            </div>
+           
+            
+          </div>
+
+          <div class="form-group row">
+
+            <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+
+
+
+            <div class="col-sm-10">
+
+              <input type="text" class="form-control" id="inputPhone" placeholder="Phone" name="phone" value="<?php echo htmlspecialchars($Phone); ?>">
+
+            </div>
+           
+            
+          </div>
+
            <div class="form-group row">
               <div class="col-sm-10">
 
-                <button type="submit" class="btn btn-success">Add Administrator</button>
+                <button type="submit" class="btn btn-success">Registration</button>
 
               </div>
             </div>

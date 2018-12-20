@@ -74,7 +74,7 @@ class Users_model extends CI_Model {
 
 	 */
 
-	public function AddUser($Username, $Password, $FirstName, $LastName) {
+	public function AddUser($Username, $Password, $FirstName, $LastName, $Phone, $CityId) {
 
 		$Data = array(
 
@@ -84,7 +84,13 @@ class Users_model extends CI_Model {
 
 			'first_name' => $FirstName,
 
-			'last_name' => $LastName
+			'last_name' => $LastName,
+
+			'phone' 	=> $Phone,
+
+			'city_id' 	=> $CityId,
+
+			'date_registration' => date("Y-m-d H:i:s")
 
 		);
 

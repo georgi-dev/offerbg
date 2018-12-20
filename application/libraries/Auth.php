@@ -245,7 +245,7 @@ class Auth {
 
 	 */
 
-	public function Register($Username, $Password, $FirstName, $LastName) {
+	public function Register($Username, $Password, $FirstName, $LastName, $Phone, $City) {
 
 		$this->CI->load->model('Users_model');
 
@@ -257,7 +257,7 @@ class Auth {
 
 		} else {
 
-			if ($this->CI->Users_model->AddUser($Username, $this->EncryptPassword($Password), $FirstName, $LastName)) {
+			if ($this->CI->Users_model->AddUser($Username, $this->EncryptPassword($Password), $FirstName, $LastName, $Phone, $City )) {
 
 				return AUTH_REG_SUCCESS;
 
