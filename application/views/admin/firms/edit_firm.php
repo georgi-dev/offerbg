@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Verified</label>
                         <div class="col-md-5 col-sm-4">
-                            <select class="form-control" id="verified">
+                            <select class="form-control" name="verified">
                                 <option value="yes" <?php if ($firm["verified"] == "yes"): ?> selected <?php endif ?>>yes</option>
                                 <option value="no" <?php if ($firm["verified"] == "no"): ?> selected <?php endif ?>>no</option>                            
                             </select>

@@ -28,19 +28,21 @@ class Firms_model extends CI_Model {
 
 	 */
 
-	public function get_all($limit, $offset) {
+	public function get_all($limit, $offset, $filter) {
 
 		$this->db->limit($limit, $offset);
+		if ($filter !== '') {
+			$this->db->like('firms.name', $filter);
+			$this->db->or_like('firms.description', $filter);
+			$this->db->or_like('firms.EIK', $filter);
+		}
 		$q = $this->db->select('*')->get('firms');
 
 		$q1 = $this->db->select('*')->get('firms');
 		$count_rows = $q1->num_rows();
-		//print_r($count_rows);
-
-		//die();
+		
 
 		return array('firms' => $q->result(), 'count_rows' => $count_rows);
-
 	}
 
 	/*
@@ -81,9 +83,9 @@ class Firms_model extends CI_Model {
 
 	 */
 
-	public function edit_one($id, $params) {
+	public function edit_one($params) {
 
-		$q = $this->db->select('*')->where('id',$id)->update('firms',$params);
+		$q = $this->db->select('*')->where('id',$params['id'])->update('firms',$params);
 		return $q;
 
 	}

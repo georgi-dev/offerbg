@@ -60,25 +60,15 @@ class Firms extends CI_Controller {
 
 	public function get_all() {
 
-
-		//print_r($_REQUEST);
-
-		//die();
-		$page = $_REQUEST['page'];
+		$page = $this->input->post('page');
 		$limit = 2;
 		$offset = ($page - 1) * $limit;
+		$filter = $this->input->post('filter');
 
-		$result = $this->Firms_model->get_all($limit, $offset);
-		// print_r($firms);
-
-		// die();
+		$result = $this->Firms_model->get_all($limit, $offset, $filter);
 
 		$pages = ceil($result['count_rows'] / $limit);
 
-
-		//print_r($pages);
-
-		//die();
 		echo json_encode(array('firms' => $result['firms'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
 	}
 
@@ -88,13 +78,24 @@ class Firms extends CI_Controller {
 		echo json_encode(array('firm' => $firm));
 	}
 
-	public function edit_one($id){
+	public function edit_firm(){
 
-		$params = array('name' => 'newDSZI');
+		// $params = array('name' => 'newDSZI');
 
-		if ($this->Firms_model->edit_one($id, $params)) {
-			echo json_encode(array("status" => 'Updated'));
-		}
+		// if ($this->Firms_model->edit_one($id, $params)) {
+		// 	echo json_encode(array("status" => 'Updated'));
+		// }
+
+
+		if ($this->input->server('REQUEST_METHOD') == 'GET')
+			$this->load->view('admin/firms/edit_firm');
+		else if ($this->input->server('REQUEST_METHOD') == 'POST')
+		// print_r($_POST);
+		// die();
+		 if ($this->Firms_model->edit_one($_POST)) {
+		 	echo json_encode(array('status'=>'Inserted'));
+		 }
+
 	}
 
 	public function delete_one(){

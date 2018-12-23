@@ -9,7 +9,7 @@ var Firms =
         $("#hddnPage").val(page);
         API.get("/Firms/get_all", {}, {
             page: page,
-            // filter: filter,
+            filter: filter
             // sort : sort,
             // sortorder : sortorder
         }, function(response) {
@@ -97,10 +97,12 @@ $("#field_created").val(response.field_created);
             
             console.log(indexed_array);
 
-        API.post("updatefirm", {}, indexed_array, function(response) {
-            General.showModal("firms was added!", function() {
+        API.post("/Firms/edit_firm", {}, indexed_array, function(response) {
+            General.showModal("Фирмата беше редактирана!", function() {
                 window.location.href = "/firms";
             }, false);
+        },function(err){
+            console.log(err);
         });
     },
 
