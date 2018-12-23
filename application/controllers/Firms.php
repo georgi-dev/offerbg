@@ -34,17 +34,52 @@ class Firms extends CI_Controller {
 		
 	}
 
-	public function index() {	
+	public function index() {
+		$this->load->view('admin/firms/all_firms');
+	}
+	public function firm($id) {
+		$firm = $this->Firms_model->get_one($id);
+		$this->load->view('admin/firms/edit_firm',array('firm' => $firm));
 
-		$firms = $this->Firms_model->get_all();
+	}
+	public function add_firm() {
 
-		echo json_encode(array('firms' => $firms));
+		if ($this->input->server('REQUEST_METHOD') == 'GET')
+			$this->load->view('admin/firms/add_firm');
+		else if ($this->input->server('REQUEST_METHOD') == 'POST')
+
+			//print_r("POST");
+			
+			//print_r($_POST);
+
+			 if ($this->Firms_model->add_firm($_POST)) {
+			 	echo json_encode(array('status'=>'Inserted'));
+			 }
+
 	}
 
 	public function get_all() {
-		$firms = $this->Firms_model->get_all();
 
-		echo json_encode(array('firms' => $firms));
+
+		//print_r($_REQUEST);
+
+		//die();
+		$page = $_REQUEST['page'];
+		$limit = 2;
+		$offset = ($page - 1) * $limit;
+
+		$result = $this->Firms_model->get_all($limit, $offset);
+		// print_r($firms);
+
+		// die();
+
+		$pages = ceil($result['count_rows'] / $limit);
+
+
+		//print_r($pages);
+
+		//die();
+		echo json_encode(array('firms' => $result['firms'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
 	}
 
 	public function get_one($id) {
@@ -62,9 +97,12 @@ class Firms extends CI_Controller {
 		}
 	}
 
-	public function delete_one($id){
+	public function delete_one(){
 
-		if ($this->Firms_model->delete_one($id)) {
+		//print_r($_POST);
+		//return "test";
+		//print_r($this->input->server('REQUEST_METHOD'));
+		if ($this->Firms_model->delete_one($_POST['id'])) {
 			echo json_encode(array("status" => 'Deleted'));
 		}
 	}

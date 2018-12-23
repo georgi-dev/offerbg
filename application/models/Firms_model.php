@@ -21,16 +21,25 @@ class Firms_model extends CI_Model {
 	}
 
 	
-
+	
 	/*
 
 	 * Returns firms
 
 	 */
 
-	public function get_all() {
+	public function get_all($limit, $offset) {
+
+		$this->db->limit($limit, $offset);
 		$q = $this->db->select('*')->get('firms');
-		return $q->result();
+
+		$q1 = $this->db->select('*')->get('firms');
+		$count_rows = $q1->num_rows();
+		//print_r($count_rows);
+
+		//die();
+
+		return array('firms' => $q->result(), 'count_rows' => $count_rows);
 
 	}
 
@@ -44,6 +53,27 @@ class Firms_model extends CI_Model {
 		$q = $this->db->select('*')->where('id',$id)->get('firms');
 		return $q->result()[0];
 
+	}
+
+	/*
+
+	* Add Firm
+
+	*/
+
+	public function add_firm($params) {
+
+		//array_push($params, date("Y m d H:i:s"));
+		$params['created'] = date("Y-m-d H:i:s");
+		//print_r($params);
+
+		//die();
+
+		if ($this->db->insert('firms', $params)) {
+			return true;
+		}else{
+		    return false;
+		}
 	}
 	/*
 

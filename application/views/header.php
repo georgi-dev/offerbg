@@ -25,7 +25,7 @@
 	<!-- Aries_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
 	<!-- <link rel="stylesheet" href="<?php echo site_url(); ?>assets/css/skins/_all-skins.css"> -->
 	
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -46,7 +46,27 @@
   </head>
 
 <body class="hold-transition skin-blue sidebar-mini fixed">
-
+<div class="modal" id="header_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <?php echo ApplicationName; ?>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="proceed">Да</button>
+                <button type="button" class="btn btn-secondary" id="cancel_action" data-dismiss="modal">Отказ</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

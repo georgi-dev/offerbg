@@ -13,7 +13,7 @@ var API = {
 	            type: "POST",
 	            url: class_and_method,
 	            dataType: 'json',
-	            data: {}
+	            data: data
 		                
 		      }).
 		      done(function(response){
@@ -46,7 +46,7 @@ var API = {
 	            type: "POST",
 	            url: class_and_method,
 	            dataType: 'json',
-	            data: {}
+	            data: data
 		                
 		      }).
 		      done(function(response){
