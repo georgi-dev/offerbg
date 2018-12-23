@@ -70,8 +70,49 @@ class Firms_model extends CI_Model {
 		//print_r($params);
 
 		//die();
+		$data = array(
+						"EIK" => $params["EIK"],
+					    "name" => $params["name"],
+					    "description" => $params["description"],
+					    "verified" => $params["verified"],
+					    "vat" => $params["vat"]
+					    
+						);
 
-		if ($this->db->insert('firms', $params)) {
+
+		if ($this->db->insert('firms', $data)) {
+
+			$last_id = $this->db->insert_id();
+
+			$activities = json_encode($params['activities']);
+
+
+
+			$this->add_firm_activities($last_id, $activities);
+			return true;
+		}else{
+		    return false;
+		}
+	}
+
+
+	public function add_firm_activities($firm_id, $activities) {
+
+		//array_push($params, date("Y m d H:i:s"));
+		
+		//print_r($params);
+
+		//die();
+		$data = array(
+						"FirmID" => $firm_id,
+						"activities" => $activities
+						);
+
+		$data['created'] = date("Y-m-d H:i:s");
+		if ($this->db->insert('firms_activities', $data)) {
+
+			//$last_id = $this->db->insert_id();
+			
 			return true;
 		}else{
 		    return false;

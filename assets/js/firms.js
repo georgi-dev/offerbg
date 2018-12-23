@@ -63,19 +63,30 @@ $("#field_created").val(response.field_created);
     },
 
     add: function()
-    {
+    {   
+
+
        var unindexed_array = $("#frmFirms").serializeArray();
+        var activities = $('.activities').val();
+            // $.each(activities, function(name, value){
+
+            //     console.log(activities);
+            // });
+            // // console.log(indexed_array);
+                unindexed_array.push({name: 'activities', value: activities});
             var indexed_array = {};
+// console.log(unindexed_array);
+            //return false;
 
             $.map(unindexed_array, function(n, i){
                 indexed_array[n['name']] = n['value'];
             });
 
-            
-            
-            console.log(indexed_array);
+            //indexed_array.push(activities);
+           
+
             //return false;
-        API.post("add_firm", {}, indexed_array, function(response) {
+        API.post("/Firms/add_firm", {}, indexed_array, function(response) {
             console.log("response",response);
             General.showModal("Фирмата беше добавена!", function() {
                 window.location.href = "/firms";

@@ -44,17 +44,32 @@ class Firms extends CI_Controller {
 	}
 	public function add_firm() {
 
-		if ($this->input->server('REQUEST_METHOD') == 'GET')
-			$this->load->view('admin/firms/add_firm');
-		else if ($this->input->server('REQUEST_METHOD') == 'POST')
+		if ($this->input->server('REQUEST_METHOD') == 'GET') {
 
-			//print_r("POST");
+			$this->load->model('Activities_model');
+			$activities = $this->Activities_model->get_all();
+
+			// print_r($activities);
+
+			// die();
+			$data = array('Activities' => $activities);
+			$this->load->view('admin/firms/add_firm',$data);
+
+		}
+
 			
+
+		else if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			// print_r($_POST);
+			// die();
 			//print_r($_POST);
 
 			 if ($this->Firms_model->add_firm($_POST)) {
 			 	echo json_encode(array('status'=>'Inserted'));
 			 }
+		}
+
+			
 
 	}
 
@@ -106,5 +121,53 @@ class Firms extends CI_Controller {
 		if ($this->Firms_model->delete_one($_POST['id'])) {
 			echo json_encode(array("status" => 'Deleted'));
 		}
+	}
+
+	public function add_cities() {
+
+		// $controllers = get_filenames(APPPATH.'views/');
+		// print_r($controllers);
+
+		// die();
+		//$myfile = fopen(, "r");
+
+		$strings = read_file(APPPATH."views/cities_and_provinces_bg.txt");
+
+		$strings = explode(PHP_EOL, $strings);
+
+		$cities = array();
+		foreach ($strings as $key => $string) {
+			// print_r($string);
+			// die();
+			$cities[] = array("name" => $string);
+			
+		}
+
+		$this->db->insert_batch('cities',$cities);
+		//IGNORE_NEW_LINES
+		// print_r($string);
+		//fclose($myfile);
+	}
+
+	public function add_activities() {
+		$strings = read_file(APPPATH."views/activities.txt");
+
+		$strings = explode(PHP_EOL, $strings);
+		$new_arr = array();
+		foreach ($strings as $key => $string) {
+			
+			$new_arr[] = preg_split('/\s+/', $string, 2);
+
+		}
+
+		$activities = array();
+		foreach ($new_arr as $key => $arr) {
+			// print_r($string);
+			// die();
+			$activities[] = array("code" => $arr[0], "name" => $arr[1]);
+			
+		}
+
+		$this->db->insert_batch('activities',$activities);
 	}
 }

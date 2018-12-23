@@ -30,6 +30,19 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="verified" class="col-md-2 control-label">Икономически дейности</label>
+                        <div class="col-md-5 col-sm-4">
+                           <select class="form-control select2 activities" multiple="multiple">
+                            <?php foreach ($Activities as $key => $Activity): ?>
+
+                              <option value="<?php echo $Activity->id;?>" data-activity-code="<?php echo $Activity->code;?>"><?php echo $Activity->name;?></option>
+                           
+                            <?php endforeach ?>
+                            
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="description" class="col-md-2 control-label">Description</label>
                         <div class="col-md-5 col-sm-4">
                             <input type="text" class="form-control" name="description" />
@@ -68,7 +81,49 @@
         </div>
     </div>
     <?php $this->load->view('footer');?>
+<script type="text/javascript">
+  
+  $(document).ready(function() {
 
+    function matchCustom(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+          return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+          return null;
+        }
+
+        // `params.term` should be the term that is used for searching
+        // `data.text` is the text that is displayed for the data object
+        if (data.text.indexOf(params.term) > -1) {
+          var modifiedData = $.extend({}, data, true);
+          modifiedData.text += ' (matched)';
+
+          // You can return modified objects from here
+          // This includes matching the `children` how you want in nested data sets
+
+          return modifiedData;
+        }
+
+        if ($(data.element).data('activity-code').toString().indexOf(params.term) > -1) {
+            return data;
+        }
+        // Return `null` if the term should not be displayed
+        return null;
+    }
+
+
+
+        $('.activities').select2({
+            placeholder: "Въведи част от код или име на дейността",
+            minimumInputLength: 3,
+            matcher: matchCustom // only start searching when the user has input 3 or more characters
+        });
+});
+</script>
     <script src="/assets/js/firms.js"></script>
 
 

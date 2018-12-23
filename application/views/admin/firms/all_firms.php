@@ -16,7 +16,7 @@
             ?>
         </div>
         <div class="col-12 col-sm-8 col-md-9">
-            <h1>Firms</h1>
+            <h1>Фирми</h1>
             <div class="input-group my-4">
                 <input type="text" id="txtFilter" class="form-control" placeholder="Name, Description, ...">
                 <div class="input-group-append">
