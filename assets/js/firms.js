@@ -75,7 +75,6 @@ $("#field_created").val(response.field_created);
             // // console.log(indexed_array);
                 unindexed_array.push({name: 'activities', value: activities});
             var indexed_array = {};
-// console.log(unindexed_array);
             //return false;
 
             $.map(unindexed_array, function(n, i){
@@ -84,6 +83,7 @@ $("#field_created").val(response.field_created);
 
             //indexed_array.push(activities);
            
+console.log(indexed_array);
 
             //return false;
         API.post("/Firms/add_firm", {}, indexed_array, function(response) {

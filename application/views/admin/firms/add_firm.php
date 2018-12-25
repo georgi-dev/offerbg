@@ -30,6 +30,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="verified" class="col-md-2 control-label">Град</label>
+                        <div class="col-md-5 col-sm-4">
+                           <select class="form-control select2 city" name="city" >
+                            <option></option>
+                            <?php foreach ($Cities as $key => $City): ?>
+
+                              <option value="<?php echo $City->id;?>"><?php echo $City->name;?></option>
+                           
+                            <?php endforeach ?>
+                            
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="verified" class="col-md-2 control-label">Адрес</label>
+                        <div class="col-md-5 col-sm-4">
+                           <textarea class="form-control" name="address"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Икономически дейности</label>
                         <div class="col-md-5 col-sm-4">
                            <select class="form-control select2 activities" multiple="multiple">
@@ -40,6 +60,12 @@
                             <?php endforeach ?>
                             
                           </select>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="verified" class="col-md-2 control-label">Сертификати</label>
+                        <div class="col-md-5 col-sm-4">
+                           <textarea class="form-control" name="certificates"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -115,13 +141,28 @@
         return null;
     }
 
-
+        $('.city').select2({
+            placeholder: "Въведи Град",
+            minimumInputLength: 3,
+            language: {
+                inputTooShort: function() {
+                    return 'Въведете най-малко 3 символа';
+                }
+            }
+            //matcher: matchCustom // only start searching when the user has input 3 or more characters
+        });
 
         $('.activities').select2({
             placeholder: "Въведи част от код или име на дейността",
             minimumInputLength: 3,
-            matcher: matchCustom // only start searching when the user has input 3 or more characters
+            matcher: matchCustom,
+             language: {
+                inputTooShort: function() {
+                    return 'Въведете най-малко 4 символа';
+                }
+            } // only start searching when the user has input 3 or more characters
         });
+       
 });
 </script>
     <script src="/assets/js/firms.js"></script>

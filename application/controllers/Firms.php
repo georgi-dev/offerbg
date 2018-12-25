@@ -39,7 +39,14 @@ class Firms extends CI_Controller {
 	}
 	public function firm($id) {
 		$firm = $this->Firms_model->get_one($id);
-		$this->load->view('admin/firms/edit_firm',array('firm' => $firm));
+
+		$this->load->model('Cities_model');
+		$cities = $this->Cities_model->get_all();
+
+		$this->load->model('Activities_model');
+		$activities = $this->Activities_model->get_all();
+
+		$this->load->view('admin/firms/edit_firm',array('firm' => $firm,'Cities' => $cities, 'Activities' => $activities));
 
 	}
 	public function add_firm() {
@@ -49,10 +56,12 @@ class Firms extends CI_Controller {
 			$this->load->model('Activities_model');
 			$activities = $this->Activities_model->get_all();
 
+			$this->load->model('Cities_model');
+			$cities = $this->Cities_model->get_all();
 			// print_r($activities);
 
 			// die();
-			$data = array('Activities' => $activities);
+			$data = array("Activities" => $activities, "Cities" => $cities);
 			$this->load->view('admin/firms/add_firm',$data);
 
 		}
