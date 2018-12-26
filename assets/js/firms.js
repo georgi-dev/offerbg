@@ -18,19 +18,36 @@ var Firms =
               
                 tblSrc += "<tr>";
                  // Proverka dali e active. Ako ne e - reda e zasiven
-        console.log(response);
+        console.log("response",response);
+                var point = "";
+               if (response.firms[i].city != "" && response.firms[i].address != "") {
+                point = ", ";
+               }
+		tblSrc += "<td>" + (response.firms[i].firm_id || "") + "</td>"
+		tblSrc += "<td>" + (response.firms[i].firm_EIK || "") + "</td>"
+		tblSrc += "<td>" + (response.firms[i].firm_name || "") + "</td>"
+        tblSrc += "<td>" + (response.firms[i].firm_desc || "") + "</td>"
+        tblSrc += "<td><b>" + (response.firms[i].city || "") +"</b>"+ point + (response.firms[i].address || "") + "</td>";
+        // console.log("activities",typeof(response.firms[i].activities));
+        var activities = [];
+        tblSrc += "<td>";
+        $.each(JSON.parse(response.firms[i].activities), function(index, value){
 
-               
-		tblSrc += "<td>" + (response.firms[i].id || "") + "</td>"
-		tblSrc += "<td>" + (response.firms[i].EIK || "") + "</td>"
-		tblSrc += "<td>" + (response.firms[i].name || "") + "</td>"
-		tblSrc += "<td>" + (response.firms[i].description || "") + "</td>"
+           //console.log(value);
+            $.each(response.activities,function(index1,value1){
+                if (value == value1.id) {
+                    console.log(value1.name);
+                    tblSrc  += "<div><b>"+value1.code + "</b>. "+ value1.name+"</div>";
+                }
+            });
+        });
+		tblSrc  += "</td>"
 		tblSrc += "<td>" + (response.firms[i].verified || "") + "</td>"
 		tblSrc += "<td>" + (response.firms[i].vat || "") + "</td>"
-		tblSrc += "<td>" + (response.firms[i].created || "") + "</td>"
+		tblSrc += "<td>" + (response.firms[i].firm_created || "") + "</td>"
                 tblSrc += "<td>";
-                tblSrc += "<a href=\"/Firms/firm/" + response.firms[i].id + "\" class=\"fa fa-edit\"></a>";
-                tblSrc += "&nbsp;<a href=\"javascript:Firms.remove(" + response.firms[i].id + ");\" class=\"fa fa-trash text-danger\"></a>";
+                tblSrc += "<a href=\"/Firms/firm/" + response.firms[i].firm_id + "\" class=\"fa fa-edit\"></a>";
+                tblSrc += "&nbsp;<a href=\"javascript:Firms.remove(" + response.firms[i].firm_id + ");\" class=\"fa fa-trash text-danger\"></a>";
                 tblSrc += "</td>";
                 tblSrc += "</tr>";
             }
@@ -98,6 +115,13 @@ console.log(indexed_array);
     update: function()
     {
         var unindexed_array = $("#frmFirms").serializeArray();
+        var activities = $('.activities').val();
+            // $.each(activities, function(name, value){
+
+            //     console.log(activities);
+            // });
+            // // console.log(indexed_array);
+                unindexed_array.push({name: 'activities', value: activities});
             var indexed_array = {};
 
             $.map(unindexed_array, function(n, i){
@@ -107,7 +131,7 @@ console.log(indexed_array);
             
             
             console.log(indexed_array);
-
+            //return false;
         API.post("/Firms/edit_firm", {}, indexed_array, function(response) {
             General.showModal("Фирмата беше редактирана!", function() {
                 window.location.href = "/firms";

@@ -93,7 +93,7 @@ class Firms extends CI_Controller {
 
 		$pages = ceil($result['count_rows'] / $limit);
 
-		echo json_encode(array('firms' => $result['firms'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
+		echo json_encode(array('firms' => $result['firms'], 'pages' => $pages,'activities' => $result['firms_activities'], 'totalrecords' => $result['count_rows']));
 	}
 
 	public function get_one($id) {

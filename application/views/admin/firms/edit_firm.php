@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Икономически дейности</label>
                         <div class="col-md-5 col-sm-4">
-                                <input type="hidden" name="default_activities" value="<?php echo urlencode($firm['activities'])?>"/>
+                                <input type="hidden" id="default_activities" value="<?php echo urlencode($firm['activities'])?>"/>
                            <select class="form-control select2 activities" multiple="multiple">
                             <?php foreach ($Activities as $key => $Activity): ?>
 
@@ -88,7 +88,7 @@
                     <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Сертификати</label>
                         <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control"><?php echo json_decode($firm['certificates'])?></textarea>
+                           <textarea class="form-control" name="certificates"><?php echo json_decode($firm['certificates'])?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label for="created" class="col-md-2 control-label">Created</label>
                         <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control" readonly name="created" 
+                            <input type="text" class="form-control" readonly
                             value="<?php echo $firm["firm_created"]; ?> "/>
 
                         </div>
@@ -200,7 +200,7 @@
                 }
             } // only start searching when the user has input 3 or more characters
         });
-        var default_activities = $('input[name="default_activities"]').val();
+        var default_activities = $('#default_activities').val();
 
         console.log(typeof(JSON.parse(decodeURIComponent(default_activities)) ));
         $('.activities').val(JSON.parse(decodeURIComponent(default_activities))).trigger('change');
