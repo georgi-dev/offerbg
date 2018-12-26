@@ -48,12 +48,16 @@ class Users extends CI_Controller {
 						$user_info = $this->Users_model->GetUserByUsername($Username);
 						
 						if ($user_info->type == "admin") {
+							$this->session->set_userdata('user_id',$user_info->UserID);
 							$this->load->view('/admin/dashboard',$user_info);
 						}
 						elseif ($user_info->type == "user") {
 							// $this->load->view('/admin/dashboard',$user_info);
 							redirect('/dashboard',$user_info);
 							# code...
+						}
+						elseif($user_info->type == "firm"){
+							redirect('/firms/dashboard',$user_info);
 						}
 						// $this->load->model('Upload_model');
 						// $UserProfileImage =  $this->Upload_model->GetProfileImage($user_info->user_id,'2');
