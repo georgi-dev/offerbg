@@ -9,6 +9,7 @@ class Upload_files extends CI_Controller {
                 $this->load->helper(array('form', 'url'));
                 //$this->load->library('upload');
                 $this->load->model('Upload_model');
+                $this->load->database();
         }
 
         public function index()
@@ -114,23 +115,17 @@ class Upload_files extends CI_Controller {
    // die();
        $parent_type_text = $this->input->post("parent_type");
         switch ($parent_type_text) {
-            case 'drivers':
+            case 'admin':
                 $parent_type = '1';
                 break;
             case 'users':
                 $parent_type = '2';
             break;
-            case 'trucks':
+            case 'firms':
                 $parent_type = '3';
                 break;
-            case 'shippingagents':
+            case 'ads':
                 $parent_type = '4';
-                break;
-            case 'carriers':
-                $parent_type = '5';
-                break;
-            case 'orders':
-                $parent_type = '6';
                 break;
             default:
                 # code...
@@ -141,7 +136,7 @@ class Upload_files extends CI_Controller {
         $parent_id = $this->input->post("parent_id");
 
         $config['upload_path']          = FCPATH . 'upldocs';
-        $config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|doc|docx';
+        $config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|doc|docx|txt';
         $config['max_size']             = 0;
         $config['max_width']            = 224343;
         $config['max_height']           = 7648;

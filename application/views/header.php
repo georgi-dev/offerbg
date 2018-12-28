@@ -33,6 +33,10 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link href="<?php echo asset_url()?>css/styles/sweetalert2.min.css" rel="stylesheet" />
+<!-- <script type="text/javascript" src="<?php echo asset_url();?>js/scripts/sweetalert2.all.min.js"></script> -->
+
+
      <style type="text/css">
      .fas.fa-bars{
       padding:20px !important;color:#fff !important;

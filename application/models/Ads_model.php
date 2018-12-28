@@ -17,7 +17,7 @@ class Ads_model extends CI_Model {
 	{
 
 		parent::__construct();
-
+		$this->load->database();
 	}
 
 	
@@ -28,10 +28,57 @@ class Ads_model extends CI_Model {
 
 	 */
 
-	public function get_all() {
-		$q = $this->db->select('*')->get('ads');
-		return $q->result();
+	public function get_all($limit, $offset, $filter) {
 
+		// $this->db
+		if ($filter !== '') {
+			$this->db->like('ads.title', $filter);
+			$this->db->or_like('ads.description', $filter);
+			// $this->db->or_like('ads.EIK', $filter);
+		}
+		$q = $this->db->select('*')->get('ads');
+		$count_rows = $q->num_rows();
+
+
+	// 	// print_r($q3->result()[0]);
+
+		// die();
+		$q1 = $this->db->select('
+						ads.id as ad_id,
+						u.email as creator,
+						ads.title as title,
+						ads.description as ad_desc,
+						ads.type,
+						ads.date_valid,
+						ads.date_create as created,
+						ads.files as files
+						
+						')
+						->join('users as u', 'u.UserID = ads.UserID', 'left')
+						// ->join('cities as c', 'c.id = fcities.cityID', 'left')
+						// ->join('firms_activities as factivities', 'firms.id = factivities.FirmID', 'left')
+						// ->join('firms_certificates as fcertificates', 'firms.id = fcertificates.FirmID', 'left')
+						->limit($limit, $offset)
+						->order_by('ads.id','desc')
+				 		->get('ads');
+		// print_r($q1->result());
+		// die();
+
+		$sql = '
+				SELECT
+					file_id,
+					file_path,
+					file_name
+				FROM
+					uploaded_files
+				WHERE 
+				parent_type = 4
+				';
+		$q3 = $this->db->query($sql);
+		$uploaded_files = $q3->result();
+// print_r($firms_activities);
+
+		return array('ads' => $q1->result(), 'uploaded_files' => $uploaded_files, 'count_rows' => $count_rows);
 	}
 
 	/*
@@ -67,6 +114,7 @@ class Ads_model extends CI_Model {
 					"title" => $params['title'],
 					"description" => $params['description'],
 					"type" => $params["type"],
+					"files" => json_encode($params["files"]),
 					"date_create" => date("Y-m-d H:i:s"),
 					"date_valid" => $params["date_valid"]
 					);

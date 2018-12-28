@@ -37,7 +37,7 @@ class Firms extends CI_Controller {
 	public function index() {
 		$this->load->view('admin/firms/all_firms');
 	}
-	public function firm($id) {
+	public function edit($id) {
 		$firm = $this->Firms_model->get_one($id);
 
 		$this->load->model('Cities_model');

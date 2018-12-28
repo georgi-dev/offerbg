@@ -1,0 +1,60 @@
+JTW Transport
+marieholmsgatan 64
+41502 Gothenburg
+
+In order Transportoren
+
+Load Order: 803610
+Domestic waybillnumber: 2061720039
+
+Ref FC-1041
+
+14 pll / 4692 kg / 5,6 ldm 
+mrk. Aditro logistics, 55652 Jonkoping
+
+2.
+JAB-terminal
+oljevagen 103-109
+41878 Gothenburg
+
+57.700891, 11.831101
+
+In order Transportoren
+
+IG-number 
+BXJ18-1555 – 9 cll / 4,4 ldm to Kitron, 55652 Jonkoping
+
+BXJ18-1567 – 2 cll / 0,8 ldm to Kitron, 55652 Jonkoping
+
+BXJ18-1567 – 3 cll / 1,5 ldm to Kitron, 55652 Jonkoping
+
+
+Разтоварване:
+
+Jonkoping х2
+
+---------------------------------------------------------
+Товарен адрес
+
+Draka kabel 
+vallgatan 5 
+57141 Nassjo
+
+In order Scanglobal
+Ref: 3350125192
+13852 kgs / 13,6 
+
+
+Разтоварен адрес Четвъртък преди обед
+
+orsted sales and Distribution
+brydehusej 32
+2750 Ballerup
+
+ 
+Ferry 
+Hel–Hel
+account 12730 
+ref MMQY37175
+
+Километри: 490 + 50 = 540 км

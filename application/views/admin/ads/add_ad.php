@@ -70,7 +70,7 @@
 
 							<div class="btn btn-primary" style="    border: 1px solid #40100e;position:relative;background: #6fa45f;">
 				                <span>Добави файлове</span>
-				                <input type="file" id="upload_file" name="userfiles[]" onchange="readURL_file(this);" multiple="" style="position: absolute;
+				                <input type="file" id="upload_file" name="userfile[]" onchange="readURL_file(this);" multiple="" style="position: absolute;
 				                opacity: 0;
 				                font-size: 100px;
 				                top: 0;
@@ -80,11 +80,32 @@
 				                cursor: pointer;">
 				            </div>
 						</div>
-						<div class="row fx-element-overlay" id="image_preview">
+						<div class="row " id="image_preview">
 	              	
 
 			            	<div class="clearfix"></div>
 			            </div>
+			            <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				            <div class="modal-dialog modal-lg">
+				                <div class="modal-content">
+				                    <div class="modal-header">
+				                        <h4 class="modal-title" id="image-gallery-title"></h4>
+				                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+				                        </button>
+				                    </div>
+				                    <div class="modal-body">
+				                        <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+				                    </div>
+				                    <div class="modal-footer">
+				                        <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+				                        </button>
+
+				                        <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+				                        </button>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 						<div class="form-group p-1">
 							<label for="description">Покани Фирма</label>
 
@@ -133,23 +154,23 @@
 			var description = $('#description').val();
 			var type = $('input[type="radio"]:checked').val();
 			// var title = $('#title').val();
-			if (title === "") {
-				jQuery("#title").addClass("is-invalid");
-				jQuery("#title").parent().parent().addClass("has-danger");
-				jQuery("#title").next().removeClass("d-none");
-				jQuery(window.document).scrollTop(jQuery("#title").offset().top);
+			// if (title === "") {
+			// 	jQuery("#title").addClass("is-invalid");
+			// 	jQuery("#title").parent().parent().addClass("has-danger");
+			// 	jQuery("#title").next().removeClass("d-none");
+			// 	jQuery(window.document).scrollTop(jQuery("#title").offset().top);
 				
-				return;
-			}
+			// 	return;
+			// }
 
-			if (description === "") {
-				jQuery("#description").addClass("is-invalid");
-				jQuery("#description").parent().parent().addClass("has-danger");
-				jQuery("#description").next().removeClass("d-none");
-				jQuery(window.document).scrollTop(jQuery("#description").offset().top);
+			// if (description === "") {
+			// 	jQuery("#description").addClass("is-invalid");
+			// 	jQuery("#description").parent().parent().addClass("has-danger");
+			// 	jQuery("#description").next().removeClass("d-none");
+			// 	jQuery(window.document).scrollTop(jQuery("#description").offset().top);
 				
-				return;
-			}
+			// 	return;
+			// }
 
 			// if (client_email === "") {
 			// 	jQuery("#client_email").addClass("is-invalid");
@@ -159,8 +180,18 @@
 				
 			// 	return;
 			// }	
+					var files = [];
+					 // var files = $('.thumb').data('file-id');
+					 $.each($('.thumb'),function(index, value){
+					 	// console.log($(value));
+					 	// console.log($(value).data('file-id'));
+					 	 files.push($(value).data('file-id'));
+					 });
+
+					 // return false;
+			        // console.log(files);
+			        // return false;
 			
-		
 						var data = {
 							"creator": jQuery("#creator").val(),
 							"title": title,
@@ -168,7 +199,7 @@
 							"type": type,
 							"firms" : $('.firms').val(),
 							"date_valid" : $('.date_valid').val(),
-							"files" : $('.files').val()
+							"files" : files
 						};
 
 
@@ -230,7 +261,11 @@
 			var formData = new FormData(myForm);
 
 			formData.append('parent_type', "<?php echo $this->uri->segment(1)?>");
-			formData.append('parent_id', $("#shipping_agent_id").val());
+			formData.append('parent_id', '4');
+
+			//console.log(<?php echo $this->uri->segment(1)?>);
+
+			//return false;
 			$.ajax({
                 type: "POST",
                 url: "/Upload_files/do_upload/",
@@ -242,6 +277,8 @@
               }).
                 done(function(response){
                   console.log(response);
+
+                  // return false;
                   	data = JSON.parse(response);
                   	let item= '';
 					if (data.msg == "Success") {
@@ -255,14 +292,27 @@
 									style="width:600px; height:500px;" frameborder="0"></iframe>
 								</div>`;
 
+	                	 }
+	                	 else if(data.ext_files[i] == "text\/plain" || data.ext_files[i] == "application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+							item = `<div class="col-lg-3 col-md-4 col-xs-6 thumb" data-file-id="${data.ids[i]}">
+							
+								<div class="card" style="width: 18rem;">
+								  
+								  <div class="card-body">
+								    <h5 class="card-title">${data.files_names[i]}</h5>
+								    
+								    <a href='/upldocs/${data.files_names[i]}' target='_blank' download >Download</a>
+								  </div>
+								</div>
+								</div>`;
 	                	 }else{
 	                	 	item = `<div class="col-lg-3 col-md-6 col-xs-6 thumb image-thumb" data-file-id="${data.ids[i]}">
 											<div class="box box-default">
 												<div class="fx-card-item">
-													<div class="fx-card-avatar fx-overlay-1"> <img src="/upldocs/${data.files_names[i]}" class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"alt="user">
+													<div class="fx-card-avatar fx-overlay-1"> <img src="/upldocs/${data.files_names[i]}" class="img-thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"alt="user">
 														<div class="fx-overlay">
 															<ul class="fx-info">
-																<li style="display:inline-block;"><a class="btn default btn-outline image-popup-vertical-fit thumbnail" href="../plugins/images/users/1.jpg" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"><i class="ion-search"></i></a></li>
+																<li style="display:inline-block;"><a class="btn default btn-outline image-popup-vertical-fit thumbnail" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"><i class="fa fa-search"></i></a></li>
 															<li style="display:inline-block;"><a class="btn default btn-outline" href="javascript:void(0);" onclick="deleteGaleryImage(this, ${data.ids[i]})"><i class="fa fa-trash"></i></a></li>
 															</ul>
 														</div>
@@ -298,4 +348,7 @@
 	
 
 </script>
+
 <?php $this->load->view('footer');?>
+
+<?php $this->load->view('image_galery');?>

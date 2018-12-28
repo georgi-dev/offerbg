@@ -34,22 +34,24 @@ class Ads extends CI_Controller {
 		$this->load->model('Ads_model');
 	}
 
-	public function index() {	
-
-		$q = $this->db->select('*')->from('users')->get();
-
-		// print_r($q->result());
-
-		 $data['users'] = $q->result();
-
-		// $this->load->view('public_pages/home',$data);
-		$this->load->view('user/dashboard');
+	public function index() {
+		$this->load->view('admin/ads/all_ads');
 	}
 
 	public function get_all() {
-		$ads = $this->Ads_model->get_all();
 
-		echo json_encode(array('ads' => $ads));
+
+		$page = $this->input->post('page');
+		$limit = 2;
+		$offset = ($page - 1) * $limit;
+		$filter = $this->input->post('filter');
+
+		$result = $this->Ads_model->get_all($limit, $offset, $filter);
+
+		$pages = ceil($result['count_rows'] / $limit);
+
+		echo json_encode(array('ads' => $result['ads'], 'uploaded_files' => $result['uploaded_files'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
+
 	}
 
 
