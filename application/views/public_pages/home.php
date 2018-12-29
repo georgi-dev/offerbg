@@ -1,5 +1,5 @@
 <!-- SPECIFIC CSS -->
-<?php $this->load->view('header');?>
+<?php $this->load->view('head');?>
 
 
 
@@ -7,7 +7,7 @@
 <a href="<?php echo site_url();?>users/registration">Регистрация</a></br>
 <a href="<?php echo site_url();?>users/logout">Излез</a>
 
-<?php $this->load->view('footer');?>
+<?php $this->load->view('foot');?>
 
 <script type="text/javascript">
 	

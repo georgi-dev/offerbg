@@ -15,7 +15,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Редакция на фирма");
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
 
     <div class="container mt-4">
         <div class="row">
@@ -139,7 +139,7 @@
     </div>
     <script src="/assets/js/firms.js"></script>
 
-<?php $this->load->view('footer');?>
+<?php $this->load->view('foot');?>
 <?php
 // include_once(dirname(__DIR__) . '/foot.php');
 ?>

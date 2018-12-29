@@ -3,15 +3,23 @@
   // print_r($Firms);
   print_r($_SESSION);
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
 <main>
-	<section>
-		<div class="post_job_header bg-secondary">
-			<div class="container p-4 ">
+	<section class="container mt-4">
+		<div class="row">
+			<div class="col-12 col-sm-4 col-md-3">
+				<?php
+				$this->load->view("admin/sidebar");
+				?>
+			</div>
+		
+		<div class="col-12 col-sm-8 col-md-9">
+		<div class="post_job_header">
+			<div class="container">
 				<div class="row">
-					<div class="col-md-8 offset-md-4">
+					<div class="col-md-8 offset-md-2">
 						<h1>Публикувай обява</h1>
-						<h3>***************************</h3>
+						
 					</div>
 				</div>
 
@@ -21,7 +29,7 @@
 
 		<div class="container">
 			<div class="row mt-3">
-				<div class="col-md-4 mt-3">
+				<div class="col-md-2 mt-3">
 					
 				</div>
 				<div class="col-md-7">
@@ -136,6 +144,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</section>
 </main>
 
@@ -349,6 +358,6 @@
 
 </script>
 
-<?php $this->load->view('footer');?>
+<?php $this->load->view('foot');?>
 
 <?php $this->load->view('image_galery');?>

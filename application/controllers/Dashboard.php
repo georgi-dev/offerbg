@@ -43,6 +43,14 @@ class Dashboard extends CI_Controller {
 		 $data['users'] = $q->result();
 
 		// $this->load->view('public_pages/home',$data);
-		$this->load->view('user/dashboard');
+		if ($this->session->user_data->type== "admin") {
+			$data = array("Admin_Name" => $this->session->user_data->first_name . " " . $this->session->user_data->last_name );
+			$this->load->view('admin/dashboard',$data);
+
+			# code...
+		}else{
+			$this->load->view('user/dashboard');
+
+		}
 	}
 }

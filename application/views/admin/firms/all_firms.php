@@ -7,7 +7,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Всички фирми");
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
 <div class="container mt-4">
     <div class="row">
         <div class="col-12 col-sm-4 col-md-3">
@@ -65,7 +65,7 @@
 <script src="/assets/js/firms.js"></script>
 
 
-<?php $this->load->view('footer');?>
+<?php $this->load->view('foot');?>
 <script>
     jQuery(function() {
         Firms.getAll();

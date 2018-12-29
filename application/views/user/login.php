@@ -6,7 +6,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Login");
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
 
 <head>
 
@@ -145,7 +145,7 @@
 
 
 
-<?php $this->load->view('footer');?>
+<?php $this->load->view('foot');?>
 	
 
 

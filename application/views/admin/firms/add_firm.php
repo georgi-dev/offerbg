@@ -1,7 +1,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Добавяне на фирма");
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
     <div class="container mt-4">
         <div class="row">
             <div class="col-12 col-sm-4 col-md-3">
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-    <?php $this->load->view('footer');?>
+    <?php $this->load->view('foot');?>
 <script type="text/javascript">
   
   $(document).ready(function() {

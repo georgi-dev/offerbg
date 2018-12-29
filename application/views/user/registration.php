@@ -6,7 +6,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Регистрация");
 ?>
-<?php $this->load->view('header',$headerParams)?>
+<?php $this->load->view('head',$headerParams)?>
 
   <?php
 
