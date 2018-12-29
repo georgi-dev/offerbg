@@ -8,41 +8,41 @@
 	</li>
 	<li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/firms">Фирми</a>
-		<span class="badge badge-primary badge-pill count-cities"></span>
+		<span class="badge badge-primary badge-pill count-firms"></span>
 	</li>
-	<li class="list-group-item d-flex justify-content-between align-items-center">
+	<!-- <li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/cities">Градове</a>
 		<span class="badge badge-primary badge-pill count-cities"></span>
-	</li>
+	</li> -->
 	<li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/activities">Дейности</a>
-		<span class="badge badge-primary badge-pill count-trades"></span>
+		<span class="badge badge-primary badge-pill count-activities"></span>
 	</li>
 	<li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/ads">Обяви</a>
-		<span class="badge badge-primary badge-pill count-leads"></span>
+		<span class="badge badge-primary badge-pill count-ads"></span>
 	</li>
 	<li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/offers">Предложения</a>
-		<span class="badge badge-primary badge-pill count-proposals"></span>
+		<span class="badge badge-primary badge-pill count-offers"></span>
 	</li>
-	<li class="list-group-item d-flex justify-content-between align-items-center">
+	<!-- <li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/messages">Съобщения</a>
 		<span class="badge badge-primary badge-pill count-messages"></span>
-	</li>
+	</li> -->
 	<li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/deals">Сделки</a>
-		<span class="badge badge-primary badge-pill count-contracts"></span>
+		<span class="badge badge-primary badge-pill count-deals"></span>
 	</li>
-	<li class="list-group-item d-flex justify-content-between align-items-center">
+	<!-- <li class="list-group-item d-flex justify-content-between align-items-center">
 		<a href="/feedbacks">Обратни връзки</a>
 		<span class="badge badge-primary badge-pill count-feedback"></span>
-	</li>
+	</li> -->
 </ul>
 
-<!-- <script src="/js/dashboard.js"></script> -->
+<script src="/assets/js/dashboard.js"></script>
 <script type="text/javascript">
 	jQuery(function() {
-			//Dashboard.getCount();
+			Dashboard.getCount();
 		});
 </script>

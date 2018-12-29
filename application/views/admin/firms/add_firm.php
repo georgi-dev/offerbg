@@ -2,12 +2,13 @@
   $headerParams = array('SiteTitle' => "Добавяне на фирма");
 ?>
 <?php $this->load->view('head',$headerParams)?>
-    <div class="container mt-4">
+<main>
+    <section class="container mt-4">
         <div class="row">
             <div class="col-12 col-sm-4 col-md-3">
-<?php
-    // include_once(__DIR__ . '/sidebar.php');
-?>
+                <?php
+                $this->load->view("admin/sidebar");
+                ?>
             </div>
             <div class="col-12 col-sm-8 col-md-9">
                 <h1>Добави фирма</h1>
@@ -106,6 +107,8 @@
             </div>
         </div>
     </div>
+</section>
+</main>
     <?php $this->load->view('foot');?>
 <script type="text/javascript">
   

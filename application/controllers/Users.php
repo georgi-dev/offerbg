@@ -27,6 +27,9 @@ class Users extends CI_Controller {
 		$this->load->model('Users_model');
 	}
 
+	public function index() {
+		$this->load->view('admin/users/all_users');
+	}
 
 	public function login($Action = NULL) {
 		//print_r($_SESSION);
@@ -219,14 +222,16 @@ class Users extends CI_Controller {
 
 	public function getUsers() {	
 
-		$users = $this->Users_model->getUsers();
+		$page = $this->input->post('page');
+		$limit = 2;
+		$offset = ($page - 1) * $limit;
+		$filter = $this->input->post('filter');
 
-		if ($this->input->is_ajax_request()) {
-		   echo json_encode(array('users' => $users));
-		}
-		else{
-			print_r($users);
-		}
+		$result = $this->Users_model->getUsers($limit, $offset, $filter);
+
+		$pages = ceil($result['count_rows'] / $limit);
+
+		echo json_encode(array('users' => $result['users'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
 	}
 
 	public function getUser($id) {	
@@ -246,14 +251,14 @@ class Users extends CI_Controller {
 
 
 		$params = array(
-						'fname' => "Иван",
-						'lname' => "Иванов",
+						'first_name' => "Иван",
+						'last_name' => "Иванов",
 						'password' => "123456",
 						'verified' => "yes",
 						'date_registration' => date("Y-m-d H:i:s")
 						);
 
-		$user = $this->Users_model->addUser($params);
+		$user = $this->db->insert('users',$params);
 		
 	}
 
@@ -269,7 +274,7 @@ class Users extends CI_Controller {
 		
 	}
 
-	public function deleteUser($ID) {
+	public function delete_one() {
 
 		// if ($this->input->server('REQUEST_METHOD') == 'POST'){
 
@@ -277,7 +282,8 @@ class Users extends CI_Controller {
 		// }
 
 
-		$this->db->where('userID',$ID);
+		$this->db->where('userID',$this->input->post('id'));
 		$this->db->delete('users');
+		echo json_encode(array("status" => 'Deleted'));
 	}
 }

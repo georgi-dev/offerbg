@@ -5,7 +5,7 @@
 // include_once(dirname(__DIR__) . '/header.php');
 
  //print_r($firm);
- $firm = json_decode(json_encode($firm), true);
+ $firm = json_decode(json_encode($user), true);
   // print_r($firm);
 
 
@@ -13,7 +13,7 @@
  // die();
 ?>
 <?php
-  $headerParams = array('SiteTitle' => "Редакция на фирма");
+  $headerParams = array('SiteTitle' => "Редакция на потребител");
 ?>
 <?php $this->load->view('head',$headerParams)?>
 
