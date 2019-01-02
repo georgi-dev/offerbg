@@ -53,7 +53,8 @@ class Users extends CI_Controller {
 						if ($user_info->type == "admin") {
 							$this->session->set_userdata('user_id',$user_info->UserID);
 							$this->session->set_userdata('user_data',$user_info);
-							$this->load->view('/admin/dashboard',$user_info);
+							//$this->load->view('/admin/dashboard',$user_info);
+							redirect('/dashboard',$user_info);
 						}
 						elseif ($user_info->type == "user") {
 							// $this->load->view('/admin/dashboard',$user_info);
