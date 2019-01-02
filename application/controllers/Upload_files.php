@@ -136,7 +136,7 @@ class Upload_files extends CI_Controller {
         $parent_id = $this->input->post("parent_id");
 
         $config['upload_path']          = FCPATH . 'upldocs';
-        $config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|doc|docx|txt';
+        $config['allowed_types']        = 'gif|jpg|png|pdf|xls|xlsx|doc|docx|txt|zip';
         $config['max_size']             = 0;
         $config['max_width']            = 224343;
         $config['max_height']           = 7648;

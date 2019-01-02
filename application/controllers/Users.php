@@ -262,15 +262,38 @@ class Users extends CI_Controller {
 		
 	}
 
-	public function editUser($id) {	
+	public function edit($id) {
+		$user = $this->Users_model->GetUserById($id);
 
-		$params = array(
-						'fname' => "Васил",
-						'lname' => "Георгиев",
-						'verified' => "no",
-						);
+		$this->load->model('Cities_model');
+		$cities = $this->Cities_model->get_all();
 
-		$user = $this->Users_model->editUser($id, $params);
+		// $this->load->model('Activities_model');
+		// $activities = $this->Activities_model->get_all();
+
+		$this->load->view('admin/users/edit_user',array('user' => $user,'Cities' => $cities));
+
+	}
+
+	public function edit_user($id) {	
+
+
+		if ($this->input->server('REQUEST_METHOD') == 'GET')
+			$this->load->view('admin/users/edit_user');
+		else if ($this->input->server('REQUEST_METHOD') == 'POST')
+		// print_r($_POST);
+		// die();
+		 if ($this->Firms_model->edit_one($_POST)) {
+		 	echo json_encode(array('status'=>'Inserted'));
+		 }
+
+		// $params = array(
+		// 				'fname' => "Васил",
+		// 				'lname' => "Георгиев",
+		// 				'verified' => "no",
+		// 				);
+
+		// $user = $this->Users_model->editUser($id, $params);
 		
 	}
 

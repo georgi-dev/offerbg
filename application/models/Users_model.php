@@ -99,7 +99,7 @@ class Users_model extends CI_Model {
 
 	public function GetUserById($UserId) {
 
-		return $this->db->where('user_id', $UserId)->limit(1)->get('users')->row();
+		return $this->db->where('UserID', $UserId)->limit(1)->get('users')->row();
 
 	}
 

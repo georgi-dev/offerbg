@@ -4,9 +4,8 @@
 // include_once(dirname(__DIR__) . '/head.php');
 // include_once(dirname(__DIR__) . '/header.php');
 
- //print_r($firm);
- $firm = json_decode(json_encode($user), true);
-  // print_r($firm);
+ $user_info = json_decode(json_encode($user), true);
+  // print_r($user);
 
 
  // print_r($firm['activities']);
@@ -16,6 +15,19 @@
   $headerParams = array('SiteTitle' => "Редакция на потребител");
 ?>
 <?php $this->load->view('head',$headerParams)?>
+<!-- Array
+(
+    [UserID] =&gt; 8
+    [first_name] =&gt; Георги
+    [last_name] =&gt; Иванов
+    [email] =&gt; d1lgiq87@gmail.com
+    [phone] =&gt; 0897018017
+    [password] =&gt; $2y$10$1YhKUvS/VA1x1VJ3HDw80.zP2DG9Q/rVhUwej60w.wbTae9G/1o4i
+    [type] =&gt; admin
+    [city_id] =&gt; 1009
+    [date_registration] =&gt; 2018-12-20 21:27:15
+    [verified] =&gt; no
+) -->
 
   <main>
     <section class="container mt-4">
@@ -26,28 +38,57 @@
                 ?>
             </div>
             <div class="col-12 col-sm-8 col-md-9">
-                <h1>Редакция на - <?php echo $firm["firm_name"];?></h1>
+                <h1>Редакция на - <?php echo $user_info["email"];?></h1>
                 
                 <br /><br />
                 <form class="form-horizontal" id="frmFirms">
                     <fieldset>
                                             <input type="hidden" class="form-control" name="id" 
-                    value="<?php echo $firm["firm_id"]; ?> "
+                    value="<?php echo $user_info["UserID"]; ?> "
                     />
                     <div class="form-group">
-                        <label for="EIK" class="col-md-2 control-label">EIK</label>
+                        <label for="EIK" class="col-md-2 control-label">Име</label>
                         <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control"  name="EIK" 
-                            value="<?php echo $firm["firm_EIK"]; ?> "/>
+                            <input type="text" class="form-control"  name="fname" 
+                            value="<?php echo $user_info["first_name"]; ?> "/>
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="col-md-2 control-label">Name</label>
+                        <label for="EIK" class="col-md-2 control-label">Фамилия</label>
                         <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control"  name="name" 
-                            value="<?php echo $firm["firm_name"]; ?> "/>
+                            <input type="text" class="form-control"  name="fname" 
+                            value="<?php echo $user_info["last_name"]; ?> "/>
 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Имейл</label>
+                        <div class="col-md-5 col-sm-4">
+                            <input type="text" class="form-control"  name="email" 
+                            value="<?php echo $user_info["email"]; ?> "/>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Телефон</label>
+                        <div class="col-md-5 col-sm-4">
+                            <input type="text" class="form-control"  name="phone" 
+                            value="<?php echo $user_info["phone"]; ?> "/>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">Тип</label>
+                        <div class="col-md-5 col-sm-4">
+                            <select class="form-control select2">
+                                <option value="admin" <?php if ($user_info['type'] == "admin"): ?>
+                                    selected
+                                <?php endif ?>>admin</option>
+                                <option value="user" <?php if ($user_info['type'] == "user"): ?>
+                                    selected
+                                <?php endif ?>>user</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -57,7 +98,7 @@
                             <option></option>
                             <?php foreach ($Cities as $key => $City): ?>
 
-                              <option value="<?php echo $City->id;?>" <?php if ($City->id == $firm["firm_city_id"]): ?>
+                              <option value="<?php echo $City->id;?>" <?php if ($City->id == $user_info["city_id"]): ?>
                                   selected
                               <?php endif ?>><?php echo $City->name;?></option>
                            
@@ -67,63 +108,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Адрес</label>
-                        <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="address"><?php echo $firm['firm_address']?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Икономически дейности</label>
-                        <div class="col-md-5 col-sm-4">
-                                <input type="hidden" id="default_activities" value="<?php echo urlencode($firm['activities'])?>"/>
-                           <select class="form-control select2 activities" multiple="multiple">
-                            <?php foreach ($Activities as $key => $Activity): ?>
-
-                              <option value="<?php echo $Activity->id;?>" data-activity-code="<?php echo $Activity->code;?>"><?php echo $Activity->name;?></option>
-                           
-                            <?php endforeach ?>
-                            
-                          </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Сертификати</label>
-                        <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="certificates"><?php echo json_decode($firm['certificates'])?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">Description</label>
-                        <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control" name="description" 
-                            value="<?php echo $firm["firm_desc"]; ?> "/>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Verified</label>
                         <div class="col-md-5 col-sm-4">
                             <select class="form-control" name="verified">
-                                <option value="yes" <?php if ($firm["verified"] == "yes"): ?> selected <?php endif ?>>yes</option>
-                                <option value="no" <?php if ($firm["verified"] == "no"): ?> selected <?php endif ?>>no</option>                            
+                                <option value="yes" <?php if ($user_info["verified"] == "yes"): ?> selected <?php endif ?>>yes</option>
+                                <option value="no" <?php if ($user_info["verified"] == "no"): ?> selected <?php endif ?>>no</option>                            
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="vat" class="col-md-2 control-label">Vat</label>
-                        <div class="col-md-5 col-sm-4">
-                           
-                            <select class="form-control" name="vat">
-                                <option value="yes" <?php if ($firm["vat"] == "yes"): ?> selected <?php endif ?>>yes</option>
-                                <option value="no" <?php if ($firm["vat"] == "no"): ?> selected <?php endif ?>>no</option>                           
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="created" class="col-md-2 control-label">Created</label>
+                        <label for="created" class="col-md-2 control-label">Дата на регистрация</label>
                         <div class="col-md-5 col-sm-4">
                             <input type="text" class="form-control" readonly
-                            value="<?php echo $firm["firm_created"]; ?> "/>
+                            value="<?php echo $user_info["date_registration"]; ?> "/>
 
                         </div>
                     </div>
@@ -132,8 +129,8 @@
                     
                     <hr />
                     
-                    <button type="button" class="btn btn-primary" onclick="Firms.update();">Запази</button>
-                    &nbsp;&nbsp;&nbsp;<a href="/firms" class="btn btn-link">Отказ</a>
+                    <button type="button" class="btn btn-primary" onclick="Users.update();">Запази</button>
+                    &nbsp;&nbsp;&nbsp;<a href="/users" class="btn btn-link">Отказ</a>
                 </form>
             </div>
         </div>
