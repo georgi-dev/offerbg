@@ -33,6 +33,7 @@
                             <th><div class="th">Creator</div></th>
                             <th><div class="th">Title</div></th>
                             <th><div class="th">Description</div></th>
+                            <th><div class="th">Invited firms</div></th>
                             <th><div class="th">Files</div></th>
                             <th><div class="th">Type</div></th>
                             <th><div class="th">Date_valid</div></th>

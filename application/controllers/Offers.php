@@ -36,20 +36,28 @@ class Offers extends CI_Controller {
 
 	public function index() {	
 
-		$q = $this->db->select('*')->from('users')->get();
+		// $q = $this->db->select('*')->from('users')->get();
 
 		// print_r($q->result());
 
-		 $data['users'] = $q->result();
+		 // $data['users'] = $q->result();
 
 		// $this->load->view('public_pages/home',$data);
-		$this->load->view('user/dashboard');
+		$this->load->view('admin/offers/all_offers');
 	}
 
 	public function get_all() {
-		$offers = $this->Offers_model->get_all();
 
-		echo json_encode(array('offers' => $offers));
+		$page = $this->input->post('page');
+		$limit = 2;
+		$offset = ($page - 1) * $limit;
+		$filter = $this->input->post('filter');
+
+		$result = $this->Offers_model->get_all($limit, $offset, $filter);
+
+		$pages = ceil($result['count_rows'] / $limit);
+
+		echo json_encode(array('offers' => $result['offers'],'uploaded_files' => $result['uploaded_files'], 'pages' => $pages, 'totalrecords' => $result['count_rows']));
 	}
 
 

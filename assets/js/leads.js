@@ -34,6 +34,8 @@ var Ads =
 		tblSrc += "<td>" + (response.ads[i].creator || "") + "</td>"
 		tblSrc += "<td>" + (response.ads[i].title || "") + "</td>"
         tblSrc += "<td>" + (response.ads[i].ad_desc || "") + "</td>"
+        tblSrc += "<td>" + (response.ads[i].invited_firms || "") + "</td>"
+        
          console.log("files",typeof(response.ads[i].files));
          console.log("files", JSON.parse(response.ads[i].files));
 
@@ -63,6 +65,7 @@ var Ads =
             });
         });
 		tblSrc  += "</td>";
+
 		tblSrc += "<td>" + (response.ads[i].type || "") + "</td>"
 		tblSrc += "<td>" + (response.ads[i].created || "") + "</td>"
 		tblSrc += "<td>" + (response.ads[i].date_valid || "") + "</td>"
