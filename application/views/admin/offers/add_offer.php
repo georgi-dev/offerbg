@@ -16,112 +16,95 @@
                 ?>
             </div>
             <div class="col-12 col-sm-8 col-md-9">
-                <h1>Добави фирма</h1>
+                <h1>Добави оферта</h1>
                 
                 <br /><br />
-                <form class="form-horizontal" id="frmFirms">
+                <form class="form-horizontal" id="upl_form">
                     <fieldset>
-                                            <div class="form-group">
-                        <label for="EIK" class="col-md-2 control-label">EIK</label>
-                        <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control" name="EIK" />
+                      <div class="form-group p-1">
+                        <label for="description">Избери Фирма</label>
 
-                        </div>
-                    </div>
+                        <select class="form-control select2 firms" name="creator">
+                          <?php foreach ($Firms['firms'] as $key => $Firm): ?>
+                            <option value="<?php echo $Firm->firm_id;?>"><?php echo $Firm->firm_name?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+                    <div class="form-group p-1">
+                        <label for="description">Избери Обява</label>
+
+                        <select class="form-control select2 firms" name="creator">
+                          <?php foreach ($Ads['ads'] as $key => $Ad): ?>
+                            <option value="<?php echo $Ad->ad_id;?>"><?php echo $Ad->title?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+
+                       <div class="form-group">
+                          <label for="description" class="col-md-2 control-label">Description</label>
+                          <div class="col-md-5 col-sm-4">
+                              <textarea class="form-control" name="description" ></textarea> 
+
+
+                          </div>
+                      </div>
                     <div class="form-group">
-                        <label for="name" class="col-md-2 control-label">Name</label>
-                        <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control" name="name" />
+                          <label for="price" class="col-md-2 control-label">Price</label>
+                          <div class="col-md-5 col-sm-4">
+                              <input type="text" class="form-control" name="price" />
+                             
 
-                        </div>
+                          </div>
+                      </div>
+                   
+                    <div class="form-group p-1">
+                      <label for="description"></label>
+
+                      <div class="btn btn-primary" style="    border: 1px solid #40100e;position:relative;background: #6fa45f;">
+                                <span>Добави файлове</span>
+                                <input type="file" id="upload_file" name="userfile[]" onchange="readURL_file(this);" multiple="" style="position: absolute;
+                                opacity: 0;
+                                font-size: 100px;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                cursor: pointer;">
+                            </div>
                     </div>
-                    <div style="border:2px solid red;" class="cloned-div">
-                        <button class="add-new-address-block btn-success rounded-circle">+</button>
-                        <div class="form-group">
-                            <label for="verified" class="col-md-2 control-label">Град</label>
-                            <div class="col-md-5 col-sm-4">
-                               <select class="form-control select2 city" name="city" >
-                                <option></option>
-                                <?php foreach ($Cities as $key => $City): ?>
-                                    <?php if ($City->type == 'region'): ?>
-                                        <optgroup label="<?php echo $City->name?>">
-                                            <?php elseif($City->type == 'city'): ?>
-                                                <option value="<?php echo $City->id;?>"><?php echo $City->name;?></option>
-                                            <?php else: ?>
-                                            
-                                        </optgroup>
-                                    <?php endif ?>
-                               
-                                <?php endforeach ?>
-                                
-                              </select>
+                    <div class="row " id="image_preview">
+                          
+
+                            <div class="clearfix"></div>
+                          </div>
+                    <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="image-gallery-title"></h4>
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fa fa-arrow-left"></i>
+                                    </button>
+
+                                    <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-arrow-right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="verified" class="col-md-2 control-label">Адрес</label>
-                            <div class="col-md-5 col-sm-4">
-                               <textarea class="form-control" name="address"></textarea>
-                            </div>
-                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Икономически дейности</label>
-                        <div class="col-md-5 col-sm-4">
-                           <select class="form-control select2 activities" multiple="multiple">
-                            <?php foreach ($Activities as $key => $Activity): ?>
-
-                              <option value="<?php echo $Activity->id;?>" data-activity-code="<?php echo $Activity->code;?>"><?php echo $Activity->code . " " . $Activity->name;?></option>
-                           
-                            <?php endforeach ?>
-                            
-                          </select>
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Сертификати</label>
-                        <ul style="position: relative; padding: 15px;" class="ul-certificates">
-                            <li style="display:block;">
-                              <input type="text" class="certificates_options form-control" placeholder="Separate options with a coma"/>
-                            </li>
-                        </ul>
-                        <!-- <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="certificates"></textarea>
-                        </div> -->
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">Description</label>
-                        <div class="col-md-5 col-sm-4">
-                            <input type="text" class="form-control" name="description" />
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Verified</label>
-                        <div class="col-md-5 col-sm-4">
-                            <select class="form-control" name="verified">
-                                <option value="yes">yes</option>
-                                <option value="no">no</option>                           
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="vat" class="col-md-2 control-label">Vat</label>
-                        <div class="col-md-5 col-sm-4">
-                            <select class="form-control" name="vat">
-                                <option value="yes">yes</option>
-                                <option value="no">no</option>                            
-                            </select>
-                        </div>
-                       
-                    </div>
-                    
 
                     </fieldset>
                     
                     <hr />
                     
-                    <button type="button" class="btn btn-primary" onclick="Firms.add();">Запази</button>
-                    &nbsp;&nbsp;&nbsp;<a href="/firms" class="btn btn-link">Отказ</a>
+                    <button type="button" class="btn btn-primary" onclick="Offers.add();">Запази</button>
+                    &nbsp;&nbsp;&nbsp;<a href="/offers" class="btn btn-link">Отказ</a>
                 </form>
             </div>
         </div>
@@ -268,10 +251,107 @@
                 }
             } // only start searching when the user has input 3 or more characters
         });
+
+  
        
 });
+
+      function readURL_file(input) {
+    console.log(input.files[0].type);
+    // return false;
+        if (input.files && input.files[0]) {
+            var product_id = 1;
+            var myForm = document.getElementById('upl_form');
+      var formData = new FormData(myForm);
+
+      formData.append('parent_type', "<?php echo $this->uri->segment(1)?>");
+      formData.append('parent_id', '5');
+
+      //console.log(<?php echo $this->uri->segment(1)?>);
+
+      //return false;
+      $.ajax({
+                type: "POST",
+                url: "/Upload_files/do_upload/",
+                data: formData,
+                processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data'
+                
+              }).
+                done(function(response){
+                  console.log(response);
+
+                  // return false;
+                    data = JSON.parse(response);
+                    let item= '';
+          if (data.msg == "Success") {
+                     for (let i = 0; i < data.files_names.length; i++) {
+                          
+                          let li1= '';
+                     if (data.ext_files[i] == "application/pdf" ) {
+
+                      item = `<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <iframe src="/upldocs/${data.files_names[i]}" 
+                  style="width:600px; height:500px;" frameborder="0"></iframe>
+                </div>`;
+
+                     }
+                     else if(data.ext_files[i] == "text\/plain" || data.ext_files[i] == "application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+              item = `<div class="col-lg-3 col-md-4 col-xs-6 thumb" data-file-id="${data.ids[i]}">
+              
+                <div class="card" style="width: 18rem;">
+                  
+                  <div class="card-body">
+                    <h5 class="card-title">${data.files_names[i]}</h5>
+                    
+                    <a href='/upldocs/${data.files_names[i]}' target='_blank' download >Download</a>
+                  </div>
+                </div>
+                </div>`;
+                     }else{
+                      item = `<div class="col-lg-3 col-md-6 col-xs-6 thumb image-thumb" data-file-id="${data.ids[i]}">
+                      <div class="box box-default">
+                        <div class="fx-card-item">
+                          <div class="fx-card-avatar fx-overlay-1"> <img src="/upldocs/${data.files_names[i]}" class="img-thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"alt="user">
+                            <div class="fx-overlay">
+                              <ul class="fx-info">
+                                <li style="display:inline-block;"><a class="btn default btn-outline image-popup-vertical-fit thumbnail" data-image-id="" data-toggle="modal" data-title="" data-image="/upldocs/${data.files_names[i]}" data-target="#image-gallery"><i class="fa fa-search"></i></a></li>
+                              <li style="display:inline-block;"><a class="btn default btn-outline" href="javascript:void(0);" onclick="deleteGaleryImage(this, ${data.ids[i]})"><i class="fa fa-trash"></i></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>`;
+                          
+                      
+                     }
+                           $('#image_preview').append(item);
+
+                  }
+                    
+                }
+                    // },1500);
+                }).fail(function(err){
+                  console.log(err);
+                });
+      // console.log(formData);
+      // return false;
+            
+            
+            // var dialog = bootbox.dialog({
+            //                         message: '<p class="text-center" style="background:#000;color:#fff;padding:10px;">The Image has been uploaded.</p>',
+            //                         closeButton: false
+            //                     });
+        }
+
+
+    }
 </script>
-    <script src="/assets/js/firms.js"></script>
+    <script src="/assets/js/offers.js"></script>
 
 
+<?php $this->load->view('image_galery');?>
 

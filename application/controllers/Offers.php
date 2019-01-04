@@ -67,6 +67,44 @@ class Offers extends CI_Controller {
 		echo json_encode(array('offer' => $offer));
 	}
 
+	public function add_offer() {
+
+		if ($this->input->server('REQUEST_METHOD') == 'GET') {
+
+			// $this->load->model('Activities_model');
+			// $activities = $this->Activities_model->get_all();
+
+			// $this->load->model('Cities_model');
+			// $cities = $this->Cities_model->get_all();
+			// print_r($activities);
+
+			// die();
+			$this->load->model('Firms_model');
+			$this->load->model('Ads_model');
+			$firms = $this->Firms_model->get_all(null, null, null);
+			$ads = $this->Ads_model->get_all(null, null, null);
+			$data = array("Firms" => $firms,"Ads" => $ads);
+
+			$this->load->view('admin/offers/add_offer',$data);
+
+		}
+
+			
+
+		else if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			// print_r($_POST);
+			// die();
+			//print_r($_POST);
+
+			 if ($this->Ads_model->add_ad($_POST)) {
+			 	echo json_encode(array('status'=>'Inserted'));
+			 }
+		}
+
+			
+
+	}
+
 	public function edit_one($id){
 
 		$params = array();
