@@ -2,6 +2,10 @@
   $headerParams = array('SiteTitle' => "Добавяне на фирма");
 ?>
 <?php $this->load->view('head',$headerParams)?>
+<style type="text/css">
+    .ul-certificates{list-style: none;}
+    .ul-certificates li {padding: 10px;color:#fff;}
+</style>
 <main>
     <section class="container mt-4">
         <div class="row">
@@ -74,9 +78,14 @@
                     </div>
                      <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Сертификати</label>
-                        <div class="col-md-5 col-sm-4">
+                        <ul style="position: relative; padding: 15px;" class="ul-certificates">
+                            <li style="display:block;">
+                              <input type="text" class="certificates_options form-control" placeholder="Separate options with a coma"/>
+                            </li>
+                        </ul>
+                        <!-- <div class="col-md-5 col-sm-4">
                            <textarea class="form-control" name="certificates"></textarea>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-md-2 control-label">Description</label>
@@ -133,7 +142,43 @@
     ele.find('.city').select2();
   })
 
+    $(document).on("keyup" ,'.certificates_options', function (e) {
+        var el = $(this);
+        console.log(e.keyCode);
+        if (e.keyCode == 188) {
+          
+              console.log(el);
+          //$('#add_variants_table').show();
+              var input_value = el.val().slice(0, -1);
+              var div_id = 2;
 
+               let li_background = '';
+               if (div_id == 1) {
+                li_background = '#763eaf';
+               };
+               if (div_id == 2) {
+                li_background = '#ff9517';
+               };
+               console.log(div_id);
+                // el.parent().parent().prepend('<li><input type="hidden" name="option_values['+div_id+'][]" value="'+input_value+'"/>'+input_value+'</li>');
+                 if (el.parent().parent().children().length == 1 && input_value !=='') {
+                el.parent().parent().prepend('<li style="background:'+li_background+'"><input type="hidden" name="certificates[option_values][]" class="variants_values" value="'+input_value+'"/>'+input_value+'<span class="delete_option" style="padding-left:10px;cursor:pointer;">x</span></li>');
+
+                 }
+                 else if(input_value !==''){
+
+                  console.log('test');
+                  el.parent().parent().children().last().prev().after('<li style="background:'+li_background+'"><input type="hidden" name="certificates[option_values][]" class="variants_values" value="'+input_value+'"/>'+input_value+'<span class="delete_option" style="padding-left:10px;cursor:pointer;">x</span></li>');
+                 
+                 }
+                el.val('');
+        }
+      });
+  $(document).on('click','.delete_option',function(e){
+        e.preventDefault();
+        $(this).parent().remove();
+        //prepare_variants();
+    });
     function matchCustom(params, data) {
         // If there are no search terms, return all of the data
         if ($.trim(params.term) === '') {
