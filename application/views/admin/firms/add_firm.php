@@ -30,24 +30,33 @@
 
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Град</label>
-                        <div class="col-md-5 col-sm-4">
-                           <select class="form-control select2 city" name="city" >
-                            <option></option>
-                            <?php foreach ($Cities as $key => $City): ?>
-
-                              <option value="<?php echo $City->id;?>"><?php echo $City->name;?></option>
-                           
-                            <?php endforeach ?>
-                            
-                          </select>
+                    <div style="border:2px solid red;" class="cloned-div">
+                        <button class="add-new-address-block btn-success rounded-circle">+</button>
+                        <div class="form-group">
+                            <label for="verified" class="col-md-2 control-label">Град</label>
+                            <div class="col-md-5 col-sm-4">
+                               <select class="form-control select2 city" name="city" >
+                                <option></option>
+                                <?php foreach ($Cities as $key => $City): ?>
+                                    <?php if ($City->type == 'region'): ?>
+                                        <optgroup label="<?php echo $City->name?>">
+                                            <?php elseif($City->type == 'city'): ?>
+                                                <option value="<?php echo $City->id;?>"><?php echo $City->name;?></option>
+                                            <?php else: ?>
+                                            
+                                        </optgroup>
+                                    <?php endif ?>
+                               
+                                <?php endforeach ?>
+                                
+                              </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="verified" class="col-md-2 control-label">Адрес</label>
-                        <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="address"></textarea>
+                        <div class="form-group">
+                            <label for="verified" class="col-md-2 control-label">Адрес</label>
+                            <div class="col-md-5 col-sm-4">
+                               <textarea class="form-control" name="address"></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,6 +123,17 @@
   
   $(document).ready(function() {
 
+
+    
+  $(".add-new-address-block").on('click', function(e){
+    e.preventDefault();
+    $(this).closest('.cloned-div').find('.city').select2('destroy');
+    var ele = $(this).closest('.cloned-div').clone(true);
+    $(this).closest('.cloned-div').after(ele);
+    ele.find('.city').select2();
+  })
+
+
     function matchCustom(params, data) {
         // If there are no search terms, return all of the data
         if ($.trim(params.term) === '') {
@@ -143,17 +163,17 @@
         // Return `null` if the term should not be displayed
         return null;
     }
-
-        $('.city').select2({
-            placeholder: "Въведи Град",
-            minimumInputLength: 3,
-            language: {
-                inputTooShort: function() {
-                    return 'Въведете най-малко 3 символа';
-                }
-            }
-            //matcher: matchCustom // only start searching when the user has input 3 or more characters
-        });
+        $('.city').select2();
+        // $('.city').select2({
+        //     placeholder: "Въведи Град",
+        //     minimumInputLength: 3,
+        //     language: {
+        //         inputTooShort: function() {
+        //             return 'Въведете най-малко 3 символа';
+        //         }
+        //     }
+        //     //matcher: matchCustom // only start searching when the user has input 3 or more characters
+        // });
 
         $('.activities').select2({
             placeholder: "Въведи част от код или име на дейността",

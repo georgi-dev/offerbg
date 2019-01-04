@@ -82,16 +82,28 @@ $("#field_created").val(response.field_created);
     add: function()
     {   
 
-
+       
 
        var unindexed_array = $("#frmFirms").serializeArray();
         var activities = $('.activities').val();
             // $.each(activities, function(name, value){
+        var cnt_cities = $(document).find('select[name="city"]').length;
+        var cities = [];
+        var addressess = [];
+        for (var i = 0; i < cnt_cities; i++) {
 
+            console.log($(document).find('select[name="city"]').eq(i).val());
+             cities.push($(document).find('select[name="city"]').eq(i).val());
+             addressess.push($(document).find('textarea[name="address"]').eq(i).val());
+        }
+
+        // return false;
             //     console.log(activities);
             // });
             // // console.log(indexed_array);
                 unindexed_array.push({name: 'activities', value: activities});
+                unindexed_array.push({name: 'cities', value: cities});
+                unindexed_array.push({name: 'addressess', value: addressess});
             var indexed_array = {};
             //return false;
 
@@ -103,7 +115,7 @@ $("#field_created").val(response.field_created);
            
 console.log(indexed_array);
 
-            //return false;
+           // return false;
         API.post("/Firms/add_firm", {}, indexed_array, function(response) {
             console.log("response",response);
             General.showModal("Фирмата беше добавена!", function() {

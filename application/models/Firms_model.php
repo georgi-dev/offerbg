@@ -170,6 +170,11 @@ class Firms_model extends CI_Model {
 
 	public function add_firm($params) {
 
+
+		// print_r($params);
+
+		// die();
+
 		$data = array(
 						"EIK" => $params["EIK"],
 					    "name" => $params["name"],
@@ -187,10 +192,14 @@ class Firms_model extends CI_Model {
 			$certificates = json_encode($params['certificates']);
 
 
+			foreach ($params['cities'] as $key => $value) {
+				$this->add_firm_city($last_id, $params['cities'][$key] , $params['addressess'][$key]);
+				# code...
+			}
 
 			$this->add_firm_activities($last_id, $activities);
 			$this->add_firm_certificates($last_id, $certificates);
-			$this->add_firm_city($last_id, $params['city'], $params['address']);
+			//$this->add_firm_city($last_id, $params['city'], $params['address']);
 			return true;
 		}else{
 		    return false;
