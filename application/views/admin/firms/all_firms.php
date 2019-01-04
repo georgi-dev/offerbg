@@ -35,6 +35,7 @@
 <th><div class="th">Description</div></th>
 <th><div class="th">Address</div></th>
 <th><div class="th">Activities</div></th>
+<th><div class="th">Сертификати</div></th>
 <th><div class="th">Verified</div></th>
 <th><div class="th">Vat</div></th>
 <th><div class="th">Created</div></th>

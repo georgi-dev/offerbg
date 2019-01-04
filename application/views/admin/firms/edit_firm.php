@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Сертификати</label>
                         <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="certificates"><?php echo json_decode($firm['certificates'])?></textarea>
+                           <textarea class="form-control" name="certificates"><?php echo $firm['certificates']?></textarea>
                         </div>
                     </div>
                     <div class="form-group">

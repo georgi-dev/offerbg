@@ -189,7 +189,7 @@ class Firms_model extends CI_Model {
 			$last_id = $this->db->insert_id();
 
 			$activities = json_encode($params['activities']);
-			$certificates = json_encode($params['certificates']);
+			$certificates = array();
 
 
 			foreach ($params['cities'] as $key => $value) {
@@ -198,7 +198,25 @@ class Firms_model extends CI_Model {
 			}
 
 			$this->add_firm_activities($last_id, $activities);
-			$this->add_firm_certificates($last_id, $certificates);
+			
+
+
+			foreach ($params['certificates'] as $key => $certificate) {
+					$this->db->where('name',$certificate);
+				$q = $this->db->select('name')->from('certificates')->get();
+				if ($q->num_rows() == 0) {
+					$this->db->insert('certificates',array('name' => $certificate));
+					$certificates[] = $certificate;
+				}else{
+					$certificates[] = $certificate;
+				}
+				# code...
+			}
+
+				$this->add_firm_certificates($last_id, json_encode($certificates));
+
+				// $this->add_firm_city($last_id, $params['cities'][$key] , $params['addressess'][$key]);
+
 			//$this->add_firm_city($last_id, $params['city'], $params['address']);
 			return true;
 		}else{
