@@ -89,6 +89,10 @@ class Firms extends CI_Controller {
 		$offset = ($page - 1) * $limit;
 		$filter = $this->input->post('filter');
 
+		//print_r($filter);
+
+		//die();
+
 		$result = $this->Firms_model->get_all($limit, $offset, $filter);
 
 		$pages = ceil($result['count_rows'] / $limit);

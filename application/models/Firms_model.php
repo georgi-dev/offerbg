@@ -31,19 +31,19 @@ class Firms_model extends CI_Model {
 	public function get_all($limit, $offset, $filter) {
 
 		// $this->db
-		if ($filter !== '') {
-			$this->db->like('firms.name', $filter);
-			$this->db->or_like('firms.description', $filter);
-			$this->db->or_like('firms.EIK', $filter);
-		}
-		$q = $this->db->select('*')->get('firms');
-		$count_rows = $q->num_rows();
+		
+		// $q = $this->db->select('*')->get('firms');
+		// $count_rows = $q->num_rows();
 
 
 	// 	// print_r($q3->result()[0]);
 
 		// die();
-		$q1 = $this->db->select('
+		//$this->db->select('SQL_CALC_FOUND_ROWS *', false);
+		
+		//$this->db->select("SQL_CALC_FOUND_ROWS", FALSE);
+		$this->db->select('
+						SQL_CALC_FOUND_ROWS null as rows,
 						firms.id as firm_id,
 						firms.EIK as firm_EIK,
 						firms.name as firm_name,
@@ -57,15 +57,30 @@ class Firms_model extends CI_Model {
 						fcities.address as address,
 						factivities.activities,
 						fcertificates.certificates
-						')
+						',FALSE)
 						->join('firms_cities as fcities', 'firms.id = fcities.FirmID', 'left')
 						->join('cities as c', 'c.id = fcities.cityID', 'left')
 						->join('firms_activities as factivities', 'firms.id = factivities.FirmID', 'left')
-						->join('firms_certificates as fcertificates', 'firms.id = fcertificates.FirmID', 'left')
-						->limit($limit, $offset)
-						->order_by('firms.id','desc')
-				 		->get('firms');
-		// print_r($q1->result());
+						->join('firms_certificates as fcertificates', 'firms.id = fcertificates.FirmID', 'left');
+
+						if ($filter !== '') {
+							$this->db->like('firms.name', $filter);
+							$this->db->or_like('firms.description', $filter);
+							$this->db->or_like('c.name', $filter);
+							$this->db->or_like('firms.verified', $filter);
+							$this->db->or_like('fcities.address', $filter);
+							$this->db->or_like('fcertificates.certificates', $filter);
+							$this->db->or_like('firms.EIK', $filter);
+						}
+						$this->db->limit($limit, $offset);
+						$this->db->order_by('firms.id','desc');
+				 		$q1 = $this->db->get('firms');
+
+		$query = $this->db->query('SELECT FOUND_ROWS() AS `count`');
+		$totalRows = $query->row()->count; 
+
+				 		//print_r($q1->num_rows());
+		 //print_r($this->db->last_query());
 		// die();
 
 		$sql = '
@@ -79,7 +94,7 @@ class Firms_model extends CI_Model {
 		$firms_activities = $q3->result();
 // print_r($firms_activities);
 
-		return array('firms' => $q1->result(),'firms_activities' => $firms_activities, 'count_rows' => $count_rows);
+		return array('firms' => $q1->result(),'firms_activities' => $firms_activities, 'count_rows' => $totalRows);
 	}
 
 	/*
@@ -170,6 +185,11 @@ class Firms_model extends CI_Model {
 
 	public function add_firm($params) {
 
+
+		// print_r($params);
+
+		// die();
+
 		$data = array(
 						"EIK" => $params["EIK"],
 					    "name" => $params["name"],
@@ -184,13 +204,35 @@ class Firms_model extends CI_Model {
 			$last_id = $this->db->insert_id();
 
 			$activities = json_encode($params['activities']);
-			$certificates = json_encode($params['certificates']);
+			$certificates = array();
 
 
+			foreach ($params['cities'] as $key => $value) {
+				$this->add_firm_city($last_id, $params['cities'][$key] , $params['addressess'][$key]);
+				# code...
+			}
 
 			$this->add_firm_activities($last_id, $activities);
-			$this->add_firm_certificates($last_id, $certificates);
-			$this->add_firm_city($last_id, $params['city'], $params['address']);
+			
+
+
+			foreach ($params['certificates'] as $key => $certificate) {
+					$this->db->where('name',$certificate);
+				$q = $this->db->select('name')->from('certificates')->get();
+				if ($q->num_rows() == 0) {
+					$this->db->insert('certificates',array('name' => $certificate));
+					$certificates[] = $certificate;
+				}else{
+					$certificates[] = $certificate;
+				}
+				# code...
+			}
+
+				$this->add_firm_certificates($last_id, json_encode($certificates));
+
+				// $this->add_firm_city($last_id, $params['cities'][$key] , $params['addressess'][$key]);
+
+			//$this->add_firm_city($last_id, $params['city'], $params['address']);
 			return true;
 		}else{
 		    return false;

@@ -127,6 +127,9 @@ class Upload_files extends CI_Controller {
             case 'Ads':
                 $parent_type = '4';
                 break;
+            case 'Offers':
+                $parent_type = '5';
+                break;
             default:
                 # code...
                 break;
