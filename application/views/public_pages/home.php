@@ -1,6 +1,7 @@
-<!-- SPECIFIC CSS -->
-<?php $this->load->view('head');?>
-
+<?php
+  $headerParams = array('SiteTitle' => "Начална страница");
+?>
+<?php $this->load->view('head',$headerParams)?>
 
 
 <a href="<?php echo site_url();?>users/login">Вход</a></br>

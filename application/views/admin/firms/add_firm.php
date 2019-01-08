@@ -109,7 +109,7 @@
     </div>
 </section>
 </main>
-    <?php $this->load->view('foot');?>
+<?php $this->load->view('foot');?>
 <script type="text/javascript">
   
   $(document).ready(function() {
@@ -168,7 +168,7 @@
        
 });
 </script>
-    <script src="/assets/js/firms.js"></script>
+    <script src="<?php echo controlers_url(); ?>/firms.js"></script>
 
 
 

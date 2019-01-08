@@ -106,10 +106,10 @@
 
             <div class="col-sm-10">
 
-              <select class="form-control select2 city" name="city[]" multiple="multiple">
+              <select class="form-control select2 city" name="city" multiple="multiple">
                 <?php foreach ($Cities as $key => $City): ?>
 
-                  <option value="<?php echo $City->id;?>" data-test="<?php echo $City->id;?>"><?php echo $City->name;?></option>
+                  <option value="<?php echo $City->id; ?>" data-test="<?php echo $City->id; ?>"><?php echo $City->name; ?></option>
                
                 <?php endforeach ?>
                 
@@ -145,6 +145,9 @@
       </form>
   </div>
 </div>
+
+
+<?php $this->load->view('foot'); ?>
 
 <script type="text/javascript">
   
@@ -213,3 +216,4 @@
       });
 });
 </script>
+

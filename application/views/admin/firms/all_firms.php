@@ -66,7 +66,7 @@
 </div>
 </section>
 </main>
-<script src="/assets/js/firms.js"></script>
+<script src="<?php echo controlers_url(); ?>/firms.js"></script>
 
 
 <?php $this->load->view('foot');?>

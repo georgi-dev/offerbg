@@ -40,7 +40,7 @@
 	</li> -->
 </ul>
 
-<script src="/assets/js/dashboard.js"></script>
+<script src="<?php echo controlers_url(); ?>dashboard.js"></script>
 <script type="text/javascript">
 	jQuery(function() {
 			Dashboard.getCount();
