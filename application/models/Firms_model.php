@@ -82,7 +82,7 @@ class Firms_model extends CI_Model {
 				 		//print_r($q1->num_rows());
 		 //print_r($this->db->last_query());
 		// die();
-
+		
 		$sql = '
 				SELECT
 					*  
