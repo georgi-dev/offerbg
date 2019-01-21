@@ -11,12 +11,31 @@
 
 <script type="text/javascript">
 	
-	// $(function(){
-	// 	API.post("Users/deleteUser/6", {}, {}, function(response) {
-	// 		// General.showModal("Обявата беше добавена!", function() {
-	// 		// 	window.location.href = "/dashboard";
-	// 		// }, false);
-	// 		console.log(response);
-	// 	});
-	// });
+	$(function(){
+		API.post("Dashboard/getcount", {}, {}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log(response);
+			$('.users_cnt').text(response.count.users_cnt);
+			$('.firms_cnt').text(response.count.firms_cnt);
+			$('.ads_cnt').text(response.count.ads_cnt);
+		});
+
+		API.post("Firms/get_all", {}, {page:1,filter:''}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log(response);
+			
+		});
+
+		API.post("Ads/get_all", {}, {page:1,filter:''}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log(response);
+			
+		});
+	});
 </script>

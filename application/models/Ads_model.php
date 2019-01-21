@@ -52,8 +52,8 @@ class Ads_model extends CI_Model {
 						ads.type,
 						ads.date_valid,
 						ads.date_create as created,
-						ads.files as files
-						
+						ads.files as files,
+						(SELECT time_format(timediff(NOW(), ads.date_create),"%H:%i:%s")) as left_time
 						')
 						->join('users as u', 'u.UserID = ads.UserID', 'left')
 						// ->join('cities as c', 'c.id = fcities.cityID', 'left')

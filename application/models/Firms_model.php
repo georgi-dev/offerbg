@@ -31,7 +31,9 @@ class Firms_model extends CI_Model {
 	public function get_all($limit, $offset, $filter) {
 
 		// $this->db
-		
+		//print_r($filter);
+
+		//die();
 		// $q = $this->db->select('*')->get('firms');
 		// $count_rows = $q->num_rows();
 
