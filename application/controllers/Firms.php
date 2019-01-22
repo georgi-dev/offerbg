@@ -85,7 +85,7 @@ class Firms extends CI_Controller {
 	public function get_all() {
 
 		$page = $this->input->post('page');
-		$limit = 2;
+		$limit = 12;
 		$offset = ($page - 1) * $limit;
 		$filter = $this->input->post('filter');
 

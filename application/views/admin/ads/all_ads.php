@@ -66,7 +66,7 @@
 </div>
 </section>
 </main>
-<script type="text/javascript" src="<?php echo asset_url()?>js/leads.js"></script>
+<script type="text/javascript" src="<?php echo asset_url();?>/js/leads.js"></script>
 
 <?php $this->load->view('foot');?>
 
