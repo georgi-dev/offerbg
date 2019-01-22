@@ -3,7 +3,7 @@
   // print_r($Firms);
   print_r($_SESSION);
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 
 <main>
 	<section class="container">
@@ -20,4 +20,4 @@
 	</section>
 </main>
 
-<?php $this->load->view('foot');?>
+<?php $this->load->view('elements/foot');?>

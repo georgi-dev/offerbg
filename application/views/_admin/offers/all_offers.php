@@ -5,39 +5,38 @@
 
 ?>
 <?php
-  $headerParams = array('SiteTitle' => "Всички фирми");
+  $headerParams = array('SiteTitle' => "Всички оферти");
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 <main>
     <section class="container mt-4">
         <div class="row">
             <div class="col-12 col-sm-4 col-md-3">
                 <?php
-                $this->load->view("admin/sidebar");
+                $this->load->view("_admin/sidebar");
                 ?>
             </div>
         
         <div class="col-12 col-sm-8 col-md-9">
-            <h1>Фирми</h1>
+            <h1>Оферти</h1>
             <div class="input-group my-4">
                 <input type="text" id="txtFilter" class="form-control" placeholder="Name, Description, ...">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button" id="btnFilter">Търсене</button>
                 </div>
             </div>
-            <table class="table" id="tblFirms">
+            <table class="table" id="tblOffers">
                 <thead>
                     <tr>
                         
 <th><div class="th">Id</div></th>
-<th><div class="th">EIK</div></th>
-<th><div class="th">Name</div></th>
+<th><div class="th">FirmID</div></th>
+<th><div class="th">AdsID</div></th>
 <th><div class="th">Description</div></th>
-<th><div class="th">Address</div></th>
-<th><div class="th">Activities</div></th>
+<th><div class="th">Price</div></th>
+<th><div class="th">Files</div></th>
 <th><div class="th">Сертификати</div></th>
-<th><div class="th">Verified</div></th>
-<th><div class="th">Vat</div></th>
+<th><div class="th">Delivery time</div></th>
 <th><div class="th">Created</div></th>
                         <th>#</th>
                     </tr>
@@ -49,7 +48,7 @@
         <nav class="row">
             <div class="col-md-8">
                 <div class="input-group">
-                    <a href="/Firms/add_firm" class="btn btn-primary">Добави нова фирма</a>
+                    <a href="/Offers/add_offer" class="btn btn-primary">Добави нова оферта</a>
                     <!-- <div class="input-group-append">
                         <span class="show_entries px-4">Showing <span id="fromEntry">1</span> to <span id="toEntry">10</span> of <span id="totalEntries"></span> entries</span>
                     </div> -->
@@ -67,16 +66,16 @@
 </div>
 </section>
 </main>
-<script src="<?php echo controlers_url(); ?>/firms.js"></script>
+<script src="/assets/js/offers.js"></script>
 
 
-<?php $this->load->view('foot');?>
+<?php $this->load->view('elements/foot');?>
 <script>
     jQuery(function() {
-        Firms.getAll();
+        Offers.getAll();
         $('#btnFilter').on('click',function(){
             
-            Firms.getAll();
+            Offers.getAll();
         })
     });
 </script>

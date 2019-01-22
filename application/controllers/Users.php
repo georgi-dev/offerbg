@@ -29,7 +29,7 @@ class Users extends CI_Controller {
 	}
 
 	public function index() {
-		$this->load->view('admin/users/all_users');
+		$this->load->view('_admin/users/all_users');
 	}
 
 	public function login($Action = NULL) {
@@ -76,11 +76,11 @@ class Users extends CI_Controller {
 						
 						$this->messages->AddMessage('Wrong username or password.', 'danger');
 						
-						redirect('users/login');
+						redirect('_users/login');
 					}
 				}
 			} else {
-				$this->load->view('user/login');
+				$this->load->view('_user/login');
 			}
 		}
 	}
@@ -159,7 +159,7 @@ class Users extends CI_Controller {
 			else {
 					$q = $this->db->select('*')->from('cities')->get();
 					$data = array('Cities' => $q->result());
-					$this->load->view('user/registration', $data);
+					$this->load->view('_user/registration', $data);
 				}
 		// if ($this->auth->IsLogged()) {
 		// 	if ($this->auth->HavePermission('ManageAdmins')) {
@@ -273,7 +273,7 @@ class Users extends CI_Controller {
 		// $this->load->model('Activities_model');
 		// $activities = $this->Activities_model->get_all();
 
-		$this->load->view('admin/users/edit_user',array('user' => $user,'Cities' => $cities));
+		$this->load->view('_admin/users/edit_user',array('user' => $user,'Cities' => $cities));
 
 	}
 
@@ -281,7 +281,7 @@ class Users extends CI_Controller {
 
 
 		if ($this->input->server('REQUEST_METHOD') == 'GET')
-			$this->load->view('admin/users/edit_user');
+			$this->load->view('_admin/users/edit_user');
 		else if ($this->input->server('REQUEST_METHOD') == 'POST')
 		// print_r($_POST);
 		// die();

@@ -1,7 +1,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Добавяне на фирма");
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 <style type="text/css">
     .ul-certificates{list-style: none;padding: 0;}
     .ul-certificates li {display:inline-block;padding: 10px;color:#fff;margin: 10px 15px 10px 0;}
@@ -128,7 +128,7 @@
     </div>
 </section>
 </main>
-<?php $this->load->view('foot');?>
+<?php $this->load->view('elements/foot');?>
 <script type="text/javascript">
   
   $(document).ready(function() {

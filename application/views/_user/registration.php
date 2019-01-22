@@ -6,7 +6,7 @@
 <?php
   $headerParams = array('SiteTitle' => "Регистрация");
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 
   <?php
 
@@ -147,7 +147,7 @@
 </div>
 
 
-<?php $this->load->view('foot'); ?>
+<?php $this->load->view('elements/foot'); ?>
 
 <script type="text/javascript">
   

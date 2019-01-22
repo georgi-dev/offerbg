@@ -1,0 +1,4 @@
+.bg-client  { background: url(../images/bg/background_clients.jpg) no-repeat center center / cover; }
+.bg-client:before { background-color: rgba(44, 55, 62, 0.4); }
+.bg-company { background: url(../images/bg/background_company.jpg) no-repeat center center / cover; }
+.bg-company:before { background-color: rgba(44, 55, 62, 0.4); }

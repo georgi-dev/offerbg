@@ -71,5 +71,3 @@
 			</div>
 		</div><!-- /.footer-bottom -->
 	</div><!-- /.footer -->
-
-	<?php $this->load->view('foot')?>
