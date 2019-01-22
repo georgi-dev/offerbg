@@ -6,8 +6,8 @@
     <script src="<?php echo asset_url();?>js/waypoints.min.js"></script>
     <script src="<?php echo asset_url();?>js/slick.min.js"></script>
     <script src="<?php echo asset_url();?>js/jquery-te.min.js"></script>
-    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="<?php echo asset_url();?>js/gmaps.min.js"></script>
+    <!-- <script src="https://maps.google.com/maps/api/js?sensor=true"></script> 
+    <script src="<?php echo asset_url();?>js/gmaps.min.js"></script>-->
     <script src="<?php echo asset_url();?>js/main.js"></script>
 
 
@@ -37,8 +37,6 @@
 		<script src="<?php echo $JS; ?>"></script>
 	<?php endforeach; ?>
 <?php endif; ?>
-
-
 
 </body>
 </html>
