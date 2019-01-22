@@ -3,7 +3,7 @@
   // print_r($Firms);
   print_r($_SESSION);
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 <main>
 	<section class="container mt-4">
 		<div class="row">
@@ -358,6 +358,6 @@
 
 </script>
 
-<?php $this->load->view('foot');?>
+<?php $this->load->view('elements/foot');?>
 
 <?php $this->load->view('image_galery');?>

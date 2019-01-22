@@ -1,4 +1,4 @@
-var Ads =
+var Offers =
 {
     getAll: function(params)
     {   
@@ -13,37 +13,37 @@ var Ads =
         // console.log(page);
 
         // return false;
-        API.get("/Ads/get_all", {}, {
+        API.get("/Offers/get_all", {}, {
             page: page,
             filter: filter
             // sort : sort,
             // sortorder : sortorder
         }, function(response) {
             var tblSrc = "", ulSrc = "", i;
-            for(i = 0;i < response.ads.length;i++) {
+            for(i = 0;i < response.offers.length;i++) {
               
                 tblSrc += "<tr>";
                  // Proverka dali e active. Ako ne e - reda e zasiven
         console.log("response",response);
                 var point = "";
-               // if (response.ads[i].city != "" && response.ads[i].address != "") {
+               // if (response.offers[i].city != "" && response.offers[i].address != "") {
                //  point = ", ";
                // }
 
-		tblSrc += "<td>" + (response.ads[i].ad_id || "") + "</td>"
-		tblSrc += "<td>" + (response.ads[i].creator || "") + "</td>"
-		tblSrc += "<td>" + (response.ads[i].title || "") + "</td>"
-        tblSrc += "<td>" + (response.ads[i].ad_desc || "") + "</td>"
-        tblSrc += "<td>" + (response.ads[i].invited_firms || "") + "</td>"
+		tblSrc += "<td>" + (response.offers[i].offer_id || "") + "</td>"
+		tblSrc += "<td>" + (response.offers[i].firm_id || "") + "</td>"
+		tblSrc += "<td>" + (response.offers[i].ads_id || "") + "</td>"
+        tblSrc += "<td>" + (response.offers[i].offer_desc || "") + "</td>"
+        tblSrc += "<td>" + (response.offers[i].offer_price || "") + "</td>"
         
-         console.log("files",typeof(response.ads[i].files));
-         console.log("files", JSON.parse(response.ads[i].files));
+         // console.log("files",typeof(response.offers[i].files));
+         // console.log("files", JSON.parse(response.offers[i].files));
 
 
          // return false;
         var files = [];
         tblSrc += "<td>";
-        $.each(JSON.parse(response.ads[i].files), function(index, value) {
+        $.each(JSON.parse(response.offers[i].offer_files), function(index, value) {
 
            console.log(value);
             $.each(response.uploaded_files,function(index1,value1) {
@@ -66,20 +66,19 @@ var Ads =
         });
 		tblSrc  += "</td>";
 
-		tblSrc += "<td>" + (response.ads[i].type || "") + "</td>"
-		tblSrc += "<td>" + (response.ads[i].created || "") + "</td>"
-		tblSrc += "<td>" + (response.ads[i].date_valid || "") + "</td>"
+		tblSrc += "<td>" + (response.offers[i].delivery_time || "") + "</td>"
+		tblSrc += "<td>" + (response.offers[i].created || "") + "</td>"
                 tblSrc += "<td>";
-                tblSrc += "<a href=\"/Ads/ad/" + response.ads[i].ad_id + "\" class=\"fa fa-edit\"></a>";
-                tblSrc += "&nbsp;<a href=\"javascript:Ads.remove(" + response.ads[i].ad_id + ");\" class=\"fa fa-trash text-danger\"></a>";
+                tblSrc += "<a href=\"/Offers/offer/" + response.offers[i].ad_id + "\" class=\"fa fa-edit\"></a>";
+                tblSrc += "&nbsp;<a href=\"javascript:offers.remove(" + response.offers[i].offer_id + ");\" class=\"fa fa-trash text-danger\"></a>";
                 tblSrc += "</td>";
                 tblSrc += "</tr>";
             }
             
-            jQuery("#tblAds tbody").html(tblSrc);
+            jQuery("#tblOffers tbody").html(tblSrc);
 
              for (i = Math.max(1, $("#hddnPage").val() - 2);i <= Math.max(response.pages, Math.min(response.pages, parseInt($("#hddnPage").val()) + 2));i++) {
-            ulSrc += "<li class=\"page-item " + (i == $("#hddnPage").val() ? "active" : "") + "\"><a class=\"page-link\"href=\"javascript:Ads.getAll({page:" + i + "})\">" + i + "</a></li>";
+            ulSrc += "<li class=\"page-item " + (i == $("#hddnPage").val() ? "active" : "") + "\"><a class=\"page-link\"href=\"javascript:Offers.getAll({page:" + i + "})\">" + i + "</a></li>";
             }
             
             $(".pagination").html(ulSrc);
@@ -108,7 +107,7 @@ $("#field_created").val(response.field_created);
 
        
 
-       var unindexed_array = $("#frmAds").serializeArray();
+       var unindexed_array = $("#frmoffers").serializeArray();
         var activities = $('.activities').val();
             // $.each(activities, function(name, value){
 
@@ -128,18 +127,18 @@ $("#field_created").val(response.field_created);
 console.log(indexed_array);
 
             //return false;
-        API.post("/Ads/add_add", {}, indexed_array, function(response) {
+        API.post("/offers/add_add", {}, indexed_array, function(response) {
             console.log("response",response);
             General.showModal("Фирмата беше добавена!", function() {
-                window.location.href = "/ads";
+                window.location.href = "/offers";
             }, false);
-            //alert("ads was added!");
+            //alert("offers was added!");
         });
     },
     
     update: function()
     {
-        var unindexed_array = $("#frmAds").serializeArray();
+        var unindexed_array = $("#frmoffers").serializeArray();
         var activities = $('.activities').val();
             // $.each(activities, function(name, value){
 
@@ -157,9 +156,9 @@ console.log(indexed_array);
             
             console.log(indexed_array);
             //return false;
-        API.post("/Ads/edit_ad", {}, indexed_array, function(response) {
+        API.post("/offers/edit_ad", {}, indexed_array, function(response) {
             General.showModal("Фирмата беше редактирана!", function() {
-                window.location.href = "/ads";
+                window.location.href = "/offers";
             }, false);
         },function(err){
             console.log(err);
@@ -171,14 +170,14 @@ console.log(indexed_array);
         // if (confirm("Are you sure you want to delete this record")) {
         //     $.getJSON(mainUrl + "includes/receiver.php?req=remove&field_id=" + field_id, function (response) {
         //         alert("Record deleted");
-        //         ads.get({page:1});
+        //         offers.get({page:1});
         //     });
         // }
 
         General.showModal("Are you sure you want to delete this record?", function() {
-            API.post("/Ads/delete_one", {}, {"id": field_id}, function(response) {
+            API.post("/offers/delete_one", {}, {"id": field_id}, function(response) {
                 General.showModal("Фирмата беше изтрита!", function() {
-                    window.location.href = "/ads";
+                    window.location.href = "/offers";
                 }, false);
             },function(err) {
                 console.log(err);

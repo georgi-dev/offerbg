@@ -15,14 +15,14 @@
 <?php
   $headerParams = array('SiteTitle' => "Редакция на фирма");
 ?>
-<?php $this->load->view('head',$headerParams)?>
+<?php $this->load->view('elements/head',$headerParams)?>
 
   <main>
     <section class="container mt-4">
         <div class="row">
             <div class="col-12 col-sm-4 col-md-3">
                 <?php
-                $this->load->view("admin/sidebar");
+                $this->load->view("_admin/sidebar");
                 ?>
             </div>
             <div class="col-12 col-sm-8 col-md-9">
@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <label for="verified" class="col-md-2 control-label">Сертификати</label>
                         <div class="col-md-5 col-sm-4">
-                           <textarea class="form-control" name="certificates"><?php echo json_decode($firm['certificates'])?></textarea>
+                           <textarea class="form-control" name="certificates"><?php echo $firm['certificates']?></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -142,7 +142,7 @@
 </main>
     <script src="/assets/js/firms.js"></script>
 
-<?php $this->load->view('foot');?>
+<?php $this->load->view('elements/foot');?>
 <?php
 // include_once(dirname(__DIR__) . '/foot.php');
 ?>

@@ -11,7 +11,7 @@
 
 			<div class="container-fluid">
 				<div class="banner-content text-left">
-					<span class="counter">Брой регистрирани клиенти: 25456465</span>
+					<span>Брой регистрирани клиенти: <span class="users_cnt"></span></span>
 					<h2>Клиенти</h2>
 					<h3>Необходима ти е ОФЕРТА?</h3>
 					<p>Искаш да избереш най-добрите условия на най-добра цена?<br>
@@ -46,7 +46,7 @@
 		<div class="tr-banner section-before bg-image bg-company col-md-6 col-lg-6">
 			<div class="container">
 				<div class="banner-content text-right">
-					<span class="counter">Брой регистрирани фирми: 1455365</span>
+					<span>Брой регистрирани фирми: <span class="firms_cnt"></span></span>
 					<h2>Фирми</h2>
 					<h3>Търсиш повече КЛИЕНТИ?</h3>
 					<p>Регистрирай се в сайта и получавай известия за клиентите търсещи услугата, която ти предлагаш.<br>
@@ -1394,7 +1394,7 @@
 					<div class="col-sm-4">
 						<div class="fun-fact">
 							<img src="<?php echo asset_url(); ?>images/icons/fun-fact1.png" alt="images" class="img-fluid">
-							<h1 class="counter">3,412</h1>
+							<h1 class="counter"><?php echo $count->users_cnt; ?></h1>
 							<span>Live Jobs</span>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
 						</div>
@@ -1402,7 +1402,7 @@
 					<div class="col-sm-4">
 						<div class="fun-fact">
 							<img src="<?php echo asset_url(); ?>images/icons/fun-fact2.png" alt="images" class="img-fluid">
-							<h1 class="counter">12,043</h1>
+							<h1 class="counter"><?php echo $count->firms_cnt; ?></h1>
 							<span>Total Company</span>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
 						</div>
@@ -1410,7 +1410,7 @@
 					<div class="col-sm-4">
 						<div class="fun-fact">
 							<img src="<?php echo asset_url(); ?>images/icons/fun-fact3.png" alt="images" class="img-fluid">
-							<h1 class="counter">5,798,298</h1>
+							<h1 class="counter"><?php echo $count->ads_cnt; ?></h1>
 							<span>Total Candidate</span>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
 						</div>
@@ -1469,19 +1469,38 @@
 		</div><!-- /.contaioner -->
 	</div><!--/. tr-download-app -->	
 
-<?php $this->load->view('elements/footer'); ?>
-
-
+<?php $this->load->view('elements/footer'); // html structure ?>
+<?php $this->load->view('elements/foot'); //js-i src ?>
 <script type="text/javascript">
-	
-	// $(function(){
-	// 	API.post("Users/deleteUser/6", {}, {}, function(response) {
-	// 		// General.showModal("Обявата беше добавена!", function() {
-	// 		// 	window.location.href = "/dashboard";
-	// 		// }, false);
-	// 		console.log(response);
-	// 	});
-	// });
-</script>
+	$(function(){
+		API.post("Dashboard/getcount", {}, {}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log(response);
+			$('.users_cnt').text(response.count.users_cnt);
+			$('.firms_cnt').text(response.count.firms_cnt);
+			$('.ads_cnt').text(response.count.ads_cnt);
+		});
 
-<?php $this->load->view('elements/foot'); ?>
+		API.post("Firms/get_all", {}, {page:1,filter:''}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log('firmi');
+			console.log(response);
+			
+		});
+
+		API.post("Ads/get_all", {}, {page:1,filter:''}, function(response) {
+			// General.showModal("Обявата беше добавена!", function() {
+			// 	window.location.href = "/dashboard";
+			// }, false);
+			console.log('obqvi');
+			console.log(response);
+			
+		});
+	});
+</script>
+</body>
+</html>

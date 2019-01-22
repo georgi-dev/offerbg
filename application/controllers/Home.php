@@ -31,7 +31,45 @@ class Home extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->helper('url');
+	
+	}
+
+
+	public function getcount() {
 		
+			// Utils::dump($params);
+			
+			$sql = '
+				SELECT (
+	        		SELECT COUNT(*) FROM ads
+	        	) AS ads_cnt ,
+	        	
+	        	(
+	        		SELECT COUNT(*) FROM users 
+	        	) AS users_cnt,
+	        	(
+	        		SELECT COUNT(*) FROM firms 
+	        	) AS firms_cnt,
+				(
+	        		SELECT COUNT(*) FROM offers 
+	        	) AS offers_cnt,
+				
+				(
+	        		SELECT COUNT(*) FROM deals 
+	        	) AS deals_cnt
+				
+
+			';
+				
+			$q = $this->db->query($sql);
+			
+			$count = $q->result()[0];
+			//Utils::dump($count);
+			//echo json_encode([
+			//	"count" => $count
+			//]);
+
+			return $count;	
 	}
 
 	public function index() {	
@@ -43,6 +81,6 @@ class Home extends CI_Controller {
 		 $data['users'] = $q->result();
 
 		// $this->load->view('public_pages/home',$data);
-		$this->load->view('/public_pages/home');
+		$this->load->view('/public_pages/home', array("count"=>$this->getcount()) );
 	}
 }

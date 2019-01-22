@@ -48,11 +48,12 @@ class Ads_model extends CI_Model {
 						u.email as creator,
 						ads.title as title,
 						ads.description as ad_desc,
+						ads.invited_firms as invited_firms,
 						ads.type,
 						ads.date_valid,
 						ads.date_create as created,
-						ads.files as files
-						
+						ads.files as files,
+						(SELECT time_format(timediff(NOW(), ads.date_create),"%H:%i:%s")) as left_time
 						')
 						->join('users as u', 'u.UserID = ads.UserID', 'left')
 						// ->join('cities as c', 'c.id = fcities.cityID', 'left')
@@ -95,6 +96,8 @@ class Ads_model extends CI_Model {
 
 	public function add_ad($params) {
 
+		// print_r($params);
+		// die();
 // 		Array
 // (
 //     [creator] => 8
@@ -115,6 +118,7 @@ class Ads_model extends CI_Model {
 					"description" => $params['description'],
 					"type" => $params["type"],
 					"files" => json_encode($params["files"]),
+					"invited_firms" => json_encode($params['firms']),
 					"date_create" => date("Y-m-d H:i:s"),
 					"date_valid" => $params["date_valid"]
 					);
